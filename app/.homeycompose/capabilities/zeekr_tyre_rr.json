@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Rear right tyre",
+    "sv": "Däck bak höger"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "units": {
+    "en": "kPa",
+    "sv": "kPa"
+  },
+  "decimals": 1,
+  "insights": true,
+  "min": 0,
+  "max": 600
+}

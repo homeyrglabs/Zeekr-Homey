@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Front left tyre",
+    "sv": "Däck fram vänster"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "units": {
+    "en": "kPa",
+    "sv": "kPa"
+  },
+  "decimals": 1,
+  "insights": true,
+  "min": 0,
+  "max": 600
+}

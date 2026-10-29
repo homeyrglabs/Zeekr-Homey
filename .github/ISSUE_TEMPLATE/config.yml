@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Setup and project status
+    url: https://github.com/homeyrglabs/Zeekr-Homey/blob/main/SETUP.md
+    about: Read the setup and maintenance notice. No support or response times are promised.

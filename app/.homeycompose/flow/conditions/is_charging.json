@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "The car !{{is|is not}} charging",
+    "sv": "Bilen !{{laddar|laddar inte}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ]
+}

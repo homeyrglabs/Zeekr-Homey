@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Battery level !{{is|is not}} below",
+    "sv": "Batterinivån !{{är|är inte}} under"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    },
+    {
+      "name": "level",
+      "type": "number",
+      "title": {
+        "en": "Battery level (%)",
+        "sv": "Batterinivå (%)"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  ],
+  "titleFormatted": {
+    "en": "Battery level !{{is|is not}} below [[level]]%",
+    "sv": "Batterinivån !{{är|är inte}} under [[level]]%"
+  }
+}

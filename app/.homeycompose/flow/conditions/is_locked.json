@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "The car !{{is|is not}} locked",
+    "sv": "Bilen !{{är|är inte}} låst"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ]
+}

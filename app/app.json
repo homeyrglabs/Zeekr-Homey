@@ -1,0 +1,587 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.rglabs.zeekr",
+  "version": "0.1.2",
+  "compatibility": ">=12.9.0",
+  "runtime": "nodejs",
+  "platforms": [
+    "local"
+  ],
+  "sdk": 3,
+  "brandColor": "#D8944B",
+  "name": {
+    "en": "Zeekr",
+    "sv": "Zeekr"
+  },
+  "description": {
+    "en": "Unofficial Zeekr community integration",
+    "sv": "Inofficiell integration för Zeekr"
+  },
+  "category": [
+    "energy"
+  ],
+  "tags": {
+    "en": [
+      "zeekr",
+      "ev",
+      "001",
+      "7x"
+    ],
+    "sv": [
+      "zeekr",
+      "elbil",
+      "001",
+      "7x"
+    ]
+  },
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "permissions": [],
+  "author": {
+    "name": "RG Labs"
+  },
+  "api": {
+    "getConfiguration": {
+      "method": "GET",
+      "path": "/configuration"
+    },
+    "saveConfiguration": {
+      "method": "POST",
+      "path": "/configuration"
+    },
+    "disconnect": {
+      "method": "POST",
+      "path": "/disconnect"
+    }
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Fryyyyy (Zeekr EV API and Home Assistant integration)"
+      },
+      {
+        "name": "Wysie (desktop key extraction tools)"
+      }
+    ]
+  },
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "Battery level changed",
+          "sv": "Batterinivån ändrades"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "level",
+            "type": "number",
+            "title": {
+              "en": "Battery level (%)",
+              "sv": "Batterinivå (%)"
+            }
+          }
+        ],
+        "id": "battery_changed"
+      },
+      {
+        "title": {
+          "en": "Charging status changed",
+          "sv": "Laddstatus ändrades"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "active",
+            "type": "boolean",
+            "title": {
+              "en": "Active",
+              "sv": "Aktiv"
+            }
+          }
+        ],
+        "id": "charging_changed"
+      },
+      {
+        "title": {
+          "en": "Cable status changed",
+          "sv": "Laddkabelns status ändrades"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "active",
+            "type": "boolean",
+            "title": {
+              "en": "Active",
+              "sv": "Aktiv"
+            }
+          }
+        ],
+        "id": "plug_changed"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Battery level !{{is|is not}} below",
+          "sv": "Batterinivån !{{är|är inte}} under"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "level",
+            "type": "number",
+            "title": {
+              "en": "Battery level (%)",
+              "sv": "Batterinivå (%)"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ],
+        "titleFormatted": {
+          "en": "Battery level !{{is|is not}} below [[level]]%",
+          "sv": "Batterinivån !{{är|är inte}} under [[level]]%"
+        },
+        "id": "battery_below"
+      },
+      {
+        "title": {
+          "en": "The car !{{is|is not}} charging",
+          "sv": "Bilen !{{laddar|laddar inte}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "id": "is_charging"
+      },
+      {
+        "title": {
+          "en": "The car !{{is|is not}} locked",
+          "sv": "Bilen !{{är|är inte}} låst"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "id": "is_locked"
+      },
+      {
+        "title": {
+          "en": "The cable !{{is|is not}} connected",
+          "sv": "Laddkabeln !{{är|är inte}} ansluten"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "id": "is_plugged"
+      }
+    ],
+    "actions": [
+      {
+        "title": {
+          "en": "Refresh vehicle status",
+          "sv": "Uppdatera bilstatus"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "id": "refresh"
+      },
+      {
+        "title": {
+          "en": "Request charging start",
+          "sv": "Begär laddstart"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+          "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+        },
+        "id": "start_charging"
+      },
+      {
+        "title": {
+          "en": "Start cabin climate",
+          "sv": "Starta kupéklimat"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "temperature",
+            "type": "number",
+            "title": {
+              "en": "Temperature (°C)",
+              "sv": "Temperatur (°C)"
+            },
+            "min": 16,
+            "max": 28,
+            "step": 0.5
+          },
+          {
+            "name": "minutes",
+            "type": "number",
+            "title": {
+              "en": "Duration (minutes)",
+              "sv": "Tid (minuter)"
+            },
+            "min": 1,
+            "max": 30,
+            "step": 1
+          }
+        ],
+        "hint": {
+          "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+          "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+        },
+        "titleFormatted": {
+          "en": "Start cabin climate at [[temperature]] °C for [[minutes]] minutes",
+          "sv": "Starta kupéklimat på [[temperature]] °C i [[minutes]] minuter"
+        },
+        "id": "start_climate"
+      },
+      {
+        "title": {
+          "en": "Request charging stop",
+          "sv": "Begär laddstopp"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+          "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+        },
+        "id": "stop_charging"
+      },
+      {
+        "title": {
+          "en": "Stop cabin climate",
+          "sv": "Stoppa kupéklimat"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+          "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+        },
+        "id": "stop_climate"
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Zeekr (EU)",
+        "sv": "Zeekr (EU)"
+      },
+      "class": "car",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "measure_battery",
+        "zeekr_range",
+        "zeekr_charging",
+        "zeekr_plugged",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_temperature",
+        "zeekr_climate",
+        "zeekr_locked",
+        "zeekr_odometer",
+        "zeekr_tyre_fl",
+        "zeekr_tyre_fr",
+        "zeekr_tyre_rl",
+        "zeekr_tyre_rr",
+        "zeekr_status",
+        "zeekr_last_sync"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Charging power",
+            "sv": "Laddeffekt"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Cabin temperature",
+            "sv": "Kupétemperatur"
+          }
+        }
+      },
+      "images": {
+        "small": "/drivers/zeekr/assets/images/small.png",
+        "large": "/drivers/zeekr/assets/images/large.png",
+        "xlarge": "/drivers/zeekr/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "login"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "electricCar": true
+      },
+      "id": "zeekr"
+    }
+  ],
+  "capabilities": {
+    "zeekr_charging": {
+      "type": "boolean",
+      "title": {
+        "en": "Charging",
+        "sv": "Laddar"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_climate": {
+      "type": "boolean",
+      "title": {
+        "en": "Climate running",
+        "sv": "Klimat aktivt"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_last_sync": {
+      "type": "string",
+      "title": {
+        "en": "Last API read (UTC)",
+        "sv": "Senaste API-avläsning (UTC)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "Car locked",
+        "sv": "Bilen låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_odometer": {
+      "type": "number",
+      "title": {
+        "en": "Odometer",
+        "sv": "Mätarställning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "km",
+        "sv": "km"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0
+    },
+    "zeekr_plugged": {
+      "type": "boolean",
+      "title": {
+        "en": "Cable connected",
+        "sv": "Laddkabel ansluten"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_range": {
+      "type": "number",
+      "title": {
+        "en": "Range",
+        "sv": "Räckvidd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "km",
+        "sv": "km"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0
+    },
+    "zeekr_status": {
+      "type": "string",
+      "title": {
+        "en": "Connection status",
+        "sv": "Anslutningsstatus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_fl": {
+      "type": "number",
+      "title": {
+        "en": "Front left tyre",
+        "sv": "Däck fram vänster"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "kPa",
+        "sv": "kPa"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0,
+      "max": 600
+    },
+    "zeekr_tyre_fr": {
+      "type": "number",
+      "title": {
+        "en": "Front right tyre",
+        "sv": "Däck fram höger"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "kPa",
+        "sv": "kPa"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0,
+      "max": 600
+    },
+    "zeekr_tyre_rl": {
+      "type": "number",
+      "title": {
+        "en": "Rear left tyre",
+        "sv": "Däck bak vänster"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "kPa",
+        "sv": "kPa"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0,
+      "max": 600
+    },
+    "zeekr_tyre_rr": {
+      "type": "number",
+      "title": {
+        "en": "Rear right tyre",
+        "sv": "Däck bak höger"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "units": {
+        "en": "kPa",
+        "sv": "kPa"
+      },
+      "decimals": 1,
+      "insights": true,
+      "min": 0,
+      "max": 600
+    }
+  },
+  "source": "https://github.com/homeyrglabs/Zeekr-Homey"
+}

@@ -1,0 +1,6 @@
+tests/
+node_modules/
+*.zip
+.env
+env.json
+zeekr_secrets*.json

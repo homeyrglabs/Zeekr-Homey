@@ -1,0 +1,154 @@
+{
+  "hmac": [
+    {
+      "method": "GET",
+      "url": "https://example.invalid/region/url?z=2&A=1&b=hello%20world",
+      "keys": {
+        "hmac_access_key": "test-access",
+        "hmac_secret_key": "test-secret"
+      },
+      "date": "Thu, 29 Oct 2026 08:00:00 GMT",
+      "expected": {
+        "X-HMAC-ALGORITHM": "hmac-sha256",
+        "X-HMAC-SIGNATURE": "U383Ji35W8EZFkHDybCW8vuwDNRzsqkewWMrxGhJ9IA=",
+        "X-HMAC-ACCESS-KEY": "test-access",
+        "X-HMAC-DIGEST": "pBvG2B1kE1dq4JlJleCtiaQW7Jc4lRXDYE9HciEi7us=",
+        "X-DATE": "Thu, 29 Oct 2026 08:00:00 GMT"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "https://example.invalid/zeekr-cuc-idaas/auth/checkUserV2",
+      "keys": {
+        "hmac_access_key": "test-access",
+        "hmac_secret_key": "test-secret"
+      },
+      "date": "Thu, 29 Oct 2026 08:00:00 GMT",
+      "expected": {
+        "X-HMAC-ALGORITHM": "hmac-sha256",
+        "X-HMAC-SIGNATURE": "Tu6QL6bs7jI5R4vJmKvjO9/xHv8ZghfuI8t551ORLAc=",
+        "X-HMAC-ACCESS-KEY": "test-access",
+        "X-HMAC-DIGEST": "pBvG2B1kE1dq4JlJleCtiaQW7Jc4lRXDYE9HciEi7us=",
+        "X-DATE": "Thu, 29 Oct 2026 08:00:00 GMT"
+      }
+    },
+    {
+      "method": "GET",
+      "url": "https://example.invalid/path//nested/?x=a=b&empty=",
+      "keys": {
+        "hmac_access_key": "test-access",
+        "hmac_secret_key": "test-secret"
+      },
+      "date": "Thu, 29 Oct 2026 08:00:00 GMT",
+      "expected": {
+        "X-HMAC-ALGORITHM": "hmac-sha256",
+        "X-HMAC-SIGNATURE": "HWEirHq93nFi+srhmqrwS3CdEq25oMkmb3F9JxIFuTk=",
+        "X-HMAC-ACCESS-KEY": "test-access",
+        "X-HMAC-DIGEST": "pBvG2B1kE1dq4JlJleCtiaQW7Jc4lRXDYE9HciEi7us=",
+        "X-DATE": "Thu, 29 Oct 2026 08:00:00 GMT"
+      }
+    }
+  ],
+  "app": [
+    {
+      "method": "GET",
+      "url": "https://example.invalid/ms-app-bff/api/v4.0/veh/vehicle-list?needSharedCar=true",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-APP-ID": "ZEEKRCNCH001M0001",
+        "X-PROJECT-ID": "ZEEKR_EU",
+        "X-API-SIGNATURE-NONCE": "test-nonce",
+        "X-TIMESTAMP": "1793260800000",
+        "authorization": "test-token",
+        "X-VIN": "",
+        "X-DEVICE-ID": "test-device",
+        "X-PLATFORM": "APP",
+        "accept-language": "en-AU",
+        "X-API-SIGNATURE-VERSION": "2.0",
+        "ignored-header": "not-signed"
+      },
+      "body": null,
+      "secret": "test-prod-secret",
+      "expected": "a7T/L9ST+G26Fk4MzX0l0wOZ9JXGja4+UGYe2tTT1ks="
+    },
+    {
+      "method": "GET",
+      "url": "https://example.invalid/a?b=hello%20world&a=x%2Fy%3Fz&b=ignored&x=*&empty=",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-APP-ID": "ZEEKRCNCH001M0001",
+        "X-PROJECT-ID": "ZEEKR_EU",
+        "X-API-SIGNATURE-NONCE": "test-nonce",
+        "X-TIMESTAMP": "1793260800000",
+        "authorization": "test-token",
+        "X-VIN": "",
+        "X-DEVICE-ID": "test-device",
+        "X-PLATFORM": "APP",
+        "accept-language": "en-AU",
+        "X-API-SIGNATURE-VERSION": "2.0",
+        "ignored-header": "not-signed"
+      },
+      "body": null,
+      "secret": "test-prod-secret",
+      "expected": "Q3Jc4GcI4iSjilADCwROE2L8RIiuIqSopk2/YMzTSBo="
+    },
+    {
+      "method": "POST",
+      "url": "https://example.invalid/ms-remote-control/v1.0/remoteControl/control",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-APP-ID": "ZEEKRCNCH001M0001",
+        "X-PROJECT-ID": "ZEEKR_EU",
+        "X-API-SIGNATURE-NONCE": "test-nonce",
+        "X-TIMESTAMP": "1793260800000",
+        "authorization": "test-token",
+        "X-VIN": "",
+        "X-DEVICE-ID": "test-device",
+        "X-PLATFORM": "APP",
+        "accept-language": "en-AU",
+        "X-API-SIGNATURE-VERSION": "2.0",
+        "ignored-header": "not-signed",
+        "Content-Length": "99"
+      },
+      "body": "{\"command\":\"start\",\"serviceId\":\"ZAF\",\"setting\":{\"serviceParameters\":[{\"key\":\"AC\",\"value\":\"true\"}]}}",
+      "secret": "test-prod-secret",
+      "expected": "ibGH3cIhOy3ICwytacDPscoQxrlcc2cwUtujmAn3TOw="
+    },
+    {
+      "method": "POST",
+      "url": "https://example.invalid/login",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-APP-ID": "ZEEKRCNCH001M0001",
+        "X-PROJECT-ID": "ZEEKR_EU",
+        "X-API-SIGNATURE-NONCE": "test-nonce",
+        "X-TIMESTAMP": "1793260800000",
+        "authorization": "test-token",
+        "X-VIN": "",
+        "X-DEVICE-ID": "test-device",
+        "X-PLATFORM": "APP",
+        "accept-language": "en-AU",
+        "X-API-SIGNATURE-VERSION": "2.0",
+        "ignored-header": "not-signed",
+        "Content-Length": "41"
+      },
+      "body": "{\"z\":[{\"b\":\"\u00e5\u00e4\u00f6\ud83d\ude00\",\"a\":1}],\"a\":true}",
+      "secret": "test-prod-secret",
+      "expected": "QLZr9A+VArzjRQLe61WL9lL8nucXNWsWqOIfj0ZnPoI="
+    }
+  ],
+  "vin": [
+    {
+      "text": "L6T79XXXXXXXX0001",
+      "key": "0123456789abcdef",
+      "iv": "fedcba9876543210",
+      "expected": "qPlmYV+Ky52237L2l7QCwMjyqIonK+rDJFwaVOf3ZRY="
+    },
+    {
+      "text": "test-vin",
+      "key": "0123456789abcdef",
+      "iv": "fedcba9876543210",
+      "expected": "ZMuOjjCAKVnzDaJcs4wkXQ=="
+    }
+  ]
+}

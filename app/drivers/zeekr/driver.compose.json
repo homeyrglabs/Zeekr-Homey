@@ -1,0 +1,70 @@
+{
+  "name": {
+    "en": "Zeekr (EU)",
+    "sv": "Zeekr (EU)"
+  },
+  "class": "car",
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "capabilities": [
+    "measure_battery",
+    "zeekr_range",
+    "zeekr_charging",
+    "zeekr_plugged",
+    "measure_power",
+    "measure_voltage",
+    "measure_current",
+    "measure_temperature",
+    "zeekr_climate",
+    "zeekr_locked",
+    "zeekr_odometer",
+    "zeekr_tyre_fl",
+    "zeekr_tyre_fr",
+    "zeekr_tyre_rl",
+    "zeekr_tyre_rr",
+    "zeekr_status",
+    "zeekr_last_sync"
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "title": {
+        "en": "Charging power",
+        "sv": "Laddeffekt"
+      }
+    },
+    "measure_temperature": {
+      "title": {
+        "en": "Cabin temperature",
+        "sv": "Kupétemperatur"
+      }
+    }
+  },
+  "images": {
+    "small": "/drivers/zeekr/assets/images/small.png",
+    "large": "/drivers/zeekr/assets/images/large.png",
+    "xlarge": "/drivers/zeekr/assets/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "login"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "electricCar": true
+  }
+}

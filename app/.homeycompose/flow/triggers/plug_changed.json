@@ -1,0 +1,23 @@
+{
+  "title": {
+    "en": "Cable status changed",
+    "sv": "Laddkabelns status ändrades"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "active",
+      "type": "boolean",
+      "title": {
+        "en": "Active",
+        "sv": "Aktiv"
+      }
+    }
+  ]
+}

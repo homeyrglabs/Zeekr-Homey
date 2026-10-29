@@ -1,0 +1,365 @@
+
+import pytest
+from unittest.mock import MagicMock, patch
+from zeekr_ev_api.client import ZeekrClient, Vehicle
+from zeekr_ev_api.exceptions import ZeekrException, AuthException
+from zeekr_ev_api import const
+
+@pytest.fixture
+def mock_client():
+    client = ZeekrClient(
+        username="test@example.com",
+        password="password",
+        hmac_access_key="key",
+        hmac_secret_key="secret",
+        password_public_key="pubkey",
+        prod_secret="prodsecret",
+    )
+    # Bypass login logic for most tests
+    client.logged_in = True
+    client.session = MagicMock()
+    client.auth_token = "auth_token"
+    client.bearer_token = "bearer_token"
+    client.region_login_server = "https://mock.login.server/"
+
+    # Mock constants to avoid external calls
+    with patch("zeekr_ev_api.client.const") as mock_const:
+        mock_const.LOGGED_IN_HEADERS = {"header": "value"}
+        mock_const.REMOTECONTROLSTATE_URL = "remote/state"
+        mock_const.VEHICLESTATUS_URL = "vehicle/status"
+        mock_const.VEHICLEVTMSTATUS_URL = const.VEHICLEVTMSTATUS_URL
+        mock_const.VEHICLECHARGINGSTATUS_URL = "charging/status"
+        mock_const.VEHLIST_URL = "veh/list"
+        # Mock encryption to avoid AES errors with empty keys
+        with patch("zeekr_ev_api.zeekr_app_sig.aes_encrypt", return_value="encrypted_vin"):
+            yield client
+
+def test_client_init():
+    client = ZeekrClient(username="u", password="p")
+    assert client.username == "u"
+    assert client.password == "p"
+    assert client.logged_in is False
+
+def test_get_vehicle_list(mock_client):
+    mock_response = {
+        "success": True,
+        "data": [
+            {"vin": "VIN123", "name": "Car 1"},
+            {"vin": "VIN456", "name": "Car 2"}
+        ]
+    }
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        vehicles = mock_client.get_vehicle_list()
+
+        assert len(vehicles) == 2
+        assert vehicles[0].vin == "VIN123"
+        assert vehicles[1].vin == "VIN456"
+        assert isinstance(vehicles[0], Vehicle)
+        mock_get.assert_called_once()
+
+def test_get_vehicle_status(mock_client):
+    mock_response = {"success": True, "data": {"status": "ok"}}
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        status = mock_client.get_vehicle_status("VIN123")
+        assert status == {"status": "ok"}
+        mock_get.assert_called_once()
+        args, kwargs = mock_get.call_args
+        # Since we mocked encryption to return 'encrypted_vin', check for that
+        assert "encrypted_vin" in str(kwargs.get('headers', {}))
+
+def test_get_vehicle_vtm_status(mock_client):
+    mock_response = {
+        "success": True,
+        "data": {
+            "activeStatus": "1",
+            "currentTemperature": "2.0",
+            "vtmTsActive": "false",
+            "vtmModel": {
+                "setting": [{"temp": "3.0", "duration": "1440"}],
+            },
+        },
+    }
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        status = mock_client.get_vehicle_vtm_status("VIN123")
+
+    assert status == mock_response["data"]
+    args, kwargs = mock_get.call_args
+    assert (
+        args[1]
+        == "https://mock.login.server/ms-vehicle-status/api/v1.0/vehicle/status/vtm"
+    )
+    assert kwargs["headers"]["X-VIN"] == "encrypted_vin"
+
+def test_get_vehicle_charging_status(mock_client):
+    mock_response = {"success": True, "data": {"charging": True}}
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        status = mock_client.get_vehicle_charging_status("VIN123")
+        assert status == {"charging": True}
+        mock_get.assert_called_once()
+
+def test_get_remote_control_state_rename(mock_client):
+    mock_response = {"success": True, "data": {"remote_state": "active"}}
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        # Call the new method directly
+        state = mock_client.get_remote_control_state("VIN123")
+        assert state == {"remote_state": "active"}
+
+        # Verify URL called
+        args, _ = mock_get.call_args
+        # The mock_client uses mocked constants, but here we are checking against the REAL const module
+        # imported at the top of the test file.
+        # We should check against the value we mocked in the fixture: "remote/state"
+        assert "remote/state" in args[1]
+
+def test_get_vehicle_state_deprecated(mock_client):
+    mock_response = {"success": True, "data": {"remote_state": "active"}}
+
+    with patch("zeekr_ev_api.network.appSignedGet", return_value=mock_response) as mock_get:
+        # Call the deprecated method and check for warning
+        with pytest.warns(DeprecationWarning, match="get_vehicle_state is deprecated"):
+            state = mock_client.get_vehicle_state("VIN123")
+
+        assert state == {"remote_state": "active"}
+
+        # Verify it still called the underlying logic (via get_remote_control_state)
+        mock_get.assert_called_once()
+
+def test_do_remote_control(mock_client):
+    mock_response = {"success": True}
+
+    with patch("zeekr_ev_api.network.appSignedPost", return_value=mock_response) as mock_post:
+        result = mock_client.do_remote_control("VIN123", "command", "service", {})
+        assert result is True
+        mock_post.assert_called_once()
+
+def test_vehicle_wrapper_methods(mock_client):
+    vehicle_data = {"vin": "VIN123"}
+    vehicle = Vehicle(mock_client, "VIN123", vehicle_data)
+
+    # Mock client methods
+    mock_client.get_vehicle_status = MagicMock(return_value="status_ok")
+    mock_client.get_vehicle_vtm_status = MagicMock(return_value="vtm_status_ok")
+    mock_client.get_vehicle_charging_status = MagicMock(return_value="charging_ok")
+    mock_client.get_remote_control_state = MagicMock(return_value="remote_ok")
+    mock_client.do_remote_control = MagicMock(return_value=True)
+
+    assert vehicle.get_status() == "status_ok"
+    assert vehicle.get_vtm_status() == "vtm_status_ok"
+    assert vehicle.get_charging_status() == "charging_ok"
+    assert vehicle.get_remote_control_state() == "remote_ok"
+    assert vehicle.do_remote_control("c", "s", {}) is True
+
+    # Verify the vehicle wrapper calls the correct client methods
+    mock_client.get_vehicle_status.assert_called_with("VIN123")
+    mock_client.get_vehicle_vtm_status.assert_called_with("VIN123")
+    mock_client.get_vehicle_charging_status.assert_called_with("VIN123")
+    mock_client.get_remote_control_state.assert_called_with("VIN123")
+    mock_client.do_remote_control.assert_called_with("VIN123", "c", "s", {})
+
+def test_not_logged_in(mock_client):
+    mock_client.logged_in = False
+    with pytest.raises(ZeekrException, match="Not logged in"):
+        mock_client.get_vehicle_list()
+
+def test_appSignedGet_concurrent_header_leak(mock_client):
+    import time
+    from concurrent.futures import ThreadPoolExecutor
+    from zeekr_ev_api.network import appSignedGet
+
+    # Mock the session to avoid actually sending requests
+    mock_client.session = MagicMock()
+
+    # Store the actual headers prepared for each request
+    prepared_headers = []
+
+    def side_effect(req):
+        prepared_headers.append(req.headers)
+        prepped_mock = MagicMock()
+        prepped_mock.url = "http://mock/url1"
+        prepped_mock.headers = req.headers
+        prepped_mock.body = None
+        prepped_mock.method = "GET"
+        return prepped_mock
+
+    mock_client.session.prepare_request = MagicMock(side_effect=side_effect)
+    mock_client.session.send = MagicMock(return_value=MagicMock(json=lambda: {"success": True}, status_code=200))
+
+    # Initialize logged_in_headers
+    mock_client.logged_in_headers = {"authorization": "bearer_token"}
+
+    # Simulate parallel requests
+    def worker(vin):
+        appSignedGet(mock_client, "http://mock/url1", headers={"X-VIN": vin})
+
+    vins = [f"vin_{i}" for i in range(10)]
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(worker, vins)
+
+    # Check that client.logged_in_headers hasn't been mutated
+    assert "X-VIN" not in mock_client.logged_in_headers, "client.logged_in_headers was mutated!"
+
+    # Check that each request had exactly its own VIN and not another one's
+    extracted_vins = [h.get("X-VIN") for h in prepared_headers]
+    assert set(extracted_vins) == set(vins), "Some requests sent mixed up or missing headers!"
+
+def test_appSignedPost_concurrent_header_leak(mock_client):
+    from concurrent.futures import ThreadPoolExecutor
+    from zeekr_ev_api.network import appSignedPost
+
+    # Mock the session to avoid actually sending requests
+    mock_client.session = MagicMock()
+
+    # Store the actual headers prepared for each request
+    prepared_headers = []
+
+    def side_effect(req):
+        prepared_headers.append(req.headers)
+        prepped_mock = MagicMock()
+        prepped_mock.url = "http://mock/url1"
+        prepped_mock.headers = req.headers
+        prepped_mock.body = None
+        prepped_mock.method = "POST"
+        return prepped_mock
+
+    mock_client.session.prepare_request = MagicMock(side_effect=side_effect)
+    mock_client.session.send = MagicMock(return_value=MagicMock(json=lambda: {"success": True}, status_code=200))
+
+    # Initialize logged_in_headers
+    mock_client.logged_in_headers = {"authorization": "bearer_token"}
+
+    # Simulate parallel requests
+    def worker(vin):
+        appSignedPost(mock_client, "http://mock/url1", extra_headers={"X-VIN": vin})
+
+    vins = [f"vin_{i}" for i in range(10)]
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(worker, vins)
+
+    # Check that client.logged_in_headers hasn't been mutated
+    assert "X-VIN" not in mock_client.logged_in_headers, "client.logged_in_headers was mutated!"
+
+    # Check that each request had exactly its own VIN and not another one's
+    extracted_vins = [h.get("X-VIN") for h in prepared_headers]
+    assert set(extracted_vins) == set(vins), "Some requests sent mixed up or missing headers!"
+
+def test_export_and_load_session_with_password(mock_client):
+    """Test that password is included in exported session and restored when loading."""
+    mock_client.username = "test_user"
+    mock_client.password = "test_password"
+    mock_client.country_code = "US"
+    mock_client.logged_in = True
+
+    session_data = mock_client.export_session()
+
+    assert session_data.get("password") == "test_password"
+    assert session_data.get("username") == "test_user"
+
+    from zeekr_ev_api.client import ZeekrClient
+
+    new_client = ZeekrClient(session_data=session_data)
+    assert new_client.username == "test_user"
+    assert new_client.password == "test_password"
+    assert new_client.country_code == "US"
+
+def test_load_session_preserves_passed_password(mock_client):
+    """Test that load_session doesn't overwrite a passed password with None."""
+    from zeekr_ev_api.client import ZeekrClient
+
+    session_data = {
+        "username": "test_user",
+        "country_code": "US",
+        "bearer_token": "some_token"
+    }
+
+    new_client = ZeekrClient(password="explicit_password", session_data=session_data)
+
+    assert new_client.username == "test_user"
+    assert new_client.password == "explicit_password"
+    assert new_client.logged_in is True
+
+
+def test_default_request_timeout_applied(mock_client):
+    """Every request passes the default timeout to session.send."""
+    from zeekr_ev_api import network
+
+    mock_client.session.send.return_value.json.return_value = {
+        "success": True,
+        "data": {},
+    }
+    network.customGet(mock_client, "https://mock.server/x")
+
+    assert (
+        mock_client.session.send.call_args.kwargs.get("timeout")
+        == const.REQUEST_TIMEOUT
+    )
+
+
+def test_request_timeout_override():
+    """A caller-supplied timeout overrides the default."""
+    client = ZeekrClient(
+        username="test@example.com",
+        password="password",
+        hmac_access_key="key",
+        hmac_secret_key="secret",
+        password_public_key="pubkey",
+        prod_secret="prodsecret",
+        timeout=5,
+    )
+    assert client.timeout == 5
+
+
+def _make_client(**kwargs):
+    return ZeekrClient(
+        username="test@example.com",
+        password="password",
+        hmac_access_key="key",
+        hmac_secret_key="secret",
+        password_public_key="pubkey",
+        prod_secret="prodsecret",
+        **kwargs,
+    )
+
+
+def test_retry_adapter_mounted_with_expected_policy():
+    """A urllib3 Retry is mounted on the session for http(s) with our policy."""
+    client = _make_client()
+
+    for scheme in ("https://x", "http://x"):
+        retry = client.session.get_adapter(scheme).max_retries
+        assert retry.total == const.MAX_RETRIES
+        assert retry.backoff_factor == const.RETRY_BACKOFF
+        assert tuple(retry.status_forcelist) == const.RETRY_STATUS_FORCELIST
+        # Only idempotent methods are retried; a command POST is never re-issued.
+        assert retry.allowed_methods == frozenset(["GET", "HEAD"])
+        assert retry.respect_retry_after_header is True
+        # A final bad status flows through to JSON parsing rather than raising.
+        assert retry.raise_on_status is False
+
+
+def test_retry_policy_overridable():
+    """max_retries / retry_backoff override the defaults."""
+    client = _make_client(max_retries=5, retry_backoff=1.5)
+
+    assert client.max_retries == 5
+    assert client.retry_backoff == 1.5
+    retry = client.session.get_adapter("https://x").max_retries
+    assert retry.total == 5
+    assert retry.backoff_factor == 1.5
+
+
+def test_retry_only_idempotent_methods_on_bad_status():
+    """GET/HEAD retry on 429/5xx; a command POST does not; 4xx never retries."""
+    retry = _make_client().session.get_adapter("https://x").max_retries
+
+    for status in const.RETRY_STATUS_FORCELIST:
+        assert retry.is_retry("GET", status) is True
+        assert retry.is_retry("POST", status) is False
+    # A normal 4xx is a real error, not transient — never retried.
+    assert retry.is_retry("GET", 404) is False

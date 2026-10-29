@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Refresh vehicle status",
+    "sv": "Uppdatera bilstatus"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ]
+}

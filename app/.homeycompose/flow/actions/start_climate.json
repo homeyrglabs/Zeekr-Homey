@@ -1,0 +1,43 @@
+{
+  "title": {
+    "en": "Start cabin climate",
+    "sv": "Starta kupéklimat"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "title": {
+        "en": "Temperature (°C)",
+        "sv": "Temperatur (°C)"
+      },
+      "min": 16,
+      "max": 28,
+      "step": 0.5
+    },
+    {
+      "name": "minutes",
+      "type": "number",
+      "title": {
+        "en": "Duration (minutes)",
+        "sv": "Tid (minuter)"
+      },
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ],
+  "hint": {
+    "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+    "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+  },
+  "titleFormatted": {
+    "en": "Start cabin climate at [[temperature]] °C for [[minutes]] minutes",
+    "sv": "Starta kupéklimat på [[temperature]] °C i [[minutes]] minuter"
+  }
+}

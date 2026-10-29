@@ -1,0 +1,17 @@
+{
+  "title": {
+    "en": "Request charging start",
+    "sv": "Begär laddstart"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ],
+  "hint": {
+    "en": "The API accepts a request. Vehicle status confirms the result. Model support must be tested.",
+    "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
+  }
+}

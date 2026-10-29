@@ -1,0 +1,14 @@
+{
+  "api": {
+    "url": "https://github.com/Fryyyyy/zeekr_ev_api",
+    "commit": "4f22bd6d410f241103bc913b62f3c35555b1fee0"
+  },
+  "homeassistant": {
+    "url": "https://github.com/Fryyyyy/zeekr_homeassistant",
+    "commit": "1f5213842571083618c9636c9b8d6d4477dcd624"
+  },
+  "extractor": {
+    "url": "https://github.com/Wysie/zeekr_key_extractor",
+    "commit": "4fff1aa3f0489f160af91530bd148fecf4607f3b"
+  }
+}

@@ -1,0 +1,20 @@
+# Generated files and local configuration
+**/node_modules/
+**/.homeybuild/
+**/__pycache__/
+**/.venv/
+**/.DS_Store
+**/Thumbs.db
+**/.env
+**/.env.*
+**/env.json
+# Private account data, extracted keys, logs and Android packages
+**/zeekr_secrets*.json
+**/*secrets*.json
+**/*private*.json
+**/*session*.json
+**/*.log
+**/*.apk
+**/*.xapk
+# Local release output
+/release-assets/

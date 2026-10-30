@@ -1,6 +1,8 @@
 # Zeekr 🚘
 ### Europeiska Zeekr-bilar i Homey Pro
 
+**Ny beta 0.2.0:** [Funktioner, begränsningar och uppdatering](FEATURES.sv.md). Lås/upplåsning och fler molnkommandon är tillagda men inte provade mot en riktig bil. Välj beta-paketet i Releases för att testa.
+
 **Börja här:** [Komplett setup](SETUP.sv.md) → [Ta fram nyckelfilen](KEYS.sv.md) → installera och anslut bilen.
 
 Inofficiell Homey-port baserad på **Fryyyyys** Zeekr EV API och Home Assistant-integration, med nyckelverktyg av **Wysie**. Distribueras under **homeyrglabs/Zeekr-Homey**. Originalprojektens upphovspersoner får erkännandet för API-arbetet. Länkar och MIT-licenser finns i [källhänvisningarna](THIRD_PARTY_NOTICES.md).

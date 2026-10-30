@@ -1,6 +1,9 @@
 # Zeekr 🚘
 ### European Zeekr vehicles in Homey Pro
 
+**Expanded beta 0.2.0:** adds cloud lock/unlock and more controls, schedules and telemetry. New commands are mock-tested, not tested on a real vehicle. See [feature details and upgrade steps (Swedish)](FEATURES.sv.md). Download the v0.2.0-beta.1 release to try it.
+
+
 **Unofficial community port — original Zeekr API work by Fryyyyy, key tools by Wysie.**
 
 Follow your car’s battery, range and charging status in Homey, and use supported charging/climate requests in Flows. Shared by [homeyrglabs](https://github.com/homeyrglabs); the original API research and implementation remain credited to their authors.

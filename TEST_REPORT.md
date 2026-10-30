@@ -1,15 +1,13 @@
-# Zeekr 0.1.2 validation
+# Zeekr 0.2.0-beta.1 validation
 
-Changes: add energy.electricCar=true to the car driver, original project contributors in the app manifest, concise English/Swedish store readmes a changelog and correctly sized square driver images. No login, telemetry, car command or stored account changes.
+Homey app version: 0.2.0. Distribution tag: v0.2.0-beta.1. This is an expanded community beta, not vehicle certification.
 
-Homey CLI 4.6.2 publish validation: passed. Existing 28 Node tests: passed. This is technical upload preparation, not certification approval. Remaining review work is listed in PUBLICERA_SV.md, including English UI/runtime messages and product-specific artwork review. No live API calls or car commands performed.
-
-## GitHub setup package
-
-- Complete English/Swedish setup, extraction and sharing instructions.
-- Offline adapter exercised end to end against the exact EU 2.9.9 XAPK. All six resulting values match the previously analysed reference. No values printed or included in distribution.
-- A deliberately incorrect APK pair is refused without producing a JSON.
-- Output overwrites are refused. Common private/generated files are excluded by the repository gitignore.
-- Original license texts and Homey app JavaScript are byte-identical to 0.1.2.
-- Existing 28 app tests pass. No live Zeekr requests or car commands performed.
-- Windows CMD launchers have been reviewed as source, but not executed on a Windows host here. End-to-end extraction was tested with Python on Linux.
+- 42 Node tests pass, including the original 28 tests and 14 added tests for expanded controls, telemetry, endpoint routing, Flow dispatch, migration and error handling.
+- Homey CLI 4.6.2: `app validate --level publish` passes without warnings about Flow titles.
+- Lock/unlock directions and parameters, cover/locator targets, seat encoding, charging-limit scaling and schedule bodies are compared against Fryyyyy's pinned MIT sources listed in UPSTREAM_VERSIONS.json. Additional original source files are preserved under upstream-reference/.
+- Mocked tests verify signed encrypted-VIN requests, no retry of control POSTs after timeout/expired token, shared command cooldown, no optimistic lock state, input validation before dispatch, preservation of existing schedules on disable, and no control POST after deletion while reading a plan.
+- Upgrade tests verify adding capabilities to an existing device and registering buttons without sending a command. Supplemental read failures clear affected old data while primary readings can remain available.
+- Original key extraction tools and instructions remain unchanged. No keys, APKs, sessions, passwords, personal logs or actual coordinates are distributed.
+- **No live Zeekr requests or vehicle commands were performed.** New functionality is not verified on an EU Zeekr 001 or any other vehicle by this port. Model, firmware, account permissions and region can prevent commands or fields from working.
+- Windows launchers were reviewed as source; no Windows-host installation was performed here. Homey validation and device mocks do not establish real Homey UI behavior or real vehicle operation.
+- The previous 0.1.2 release remains available. This beta is isolated on expanded-cloud-controls; main is unchanged.

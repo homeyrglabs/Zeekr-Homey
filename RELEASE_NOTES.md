@@ -1,3 +1,15 @@
+# 0.2.0-beta.1 — expanded cloud controls
+
+Adds explicit cloud lock/unlock buttons and Flow cards, trunk/hood release, windows/sunshade/charge lid, locator, defrost/wheel/seats/ventilation/sentry, charging limits and schedules, departure scheduling, and additional telemetry. See [Swedish feature list and upgrade guide](FEATURES.sv.md).
+
+New commands are offline/mocked-tested only. They have not been tested against a real vehicle. No Bluetooth driving key is included. 42 tests and Homey technical publish validation pass. Shared as-is, without maintenance or support commitments.
+
+Install the full release ZIP on the same Homey with INSTALL_WINDOWS.cmd. Do not uninstall first or use --clean. Existing app ID, account settings and device remain. Newly added capabilities are migrated at startup.
+
+Original API work: Fryyyyy. Key extractor: Wysie. Original MIT notices are preserved.
+
+---
+
 Zeekr 0.1.2 — community beta
 
 Unofficial Homey Pro port of Fryyyyy’s Zeekr projects, with desktop key tools by Wysie. Original MIT license notices are preserved.

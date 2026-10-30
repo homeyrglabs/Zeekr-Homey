@@ -1,4 +1,5 @@
 'use strict';
+const { translator } = require('./lib/language');
 const Homey = require('homey');
 const { createHash } = require('node:crypto');
 const { ZeekrClient } = require('./lib/client');
@@ -7,6 +8,7 @@ const { charging, climate } = require('./lib/commands');
 const fingerprint = config => createHash('sha256').update(JSON.stringify(config)).digest('hex');
 class ZeekrApp extends Homey.App {
   async onInit() {
+    this.t = translator(this.homey);
     this.client = null; this.clientKey = null; this.saving = false;
     for (const id of require('./lib/expanded-actions.json')) {
       this.homey.flow.getActionCard(id).registerRunListener(async ({ device, ...args }) => { await device.performAction(id, args); return true; });
@@ -15,34 +17,35 @@ class ZeekrApp extends Homey.App {
     this.homey.flow.getActionCard('start_charging').registerRunListener(async ({ device }) => { await device.sendCommand(charging(true)); return true; });
     this.homey.flow.getActionCard('stop_charging').registerRunListener(async ({ device }) => { await device.sendCommand(charging(false)); return true; });
     this.homey.flow.getActionCard('start_climate').registerRunListener(async ({ device, temperature, minutes }) => {
-      await device.sendCommand(climate(true, temperature, minutes)); return true;
+      await device.sendCommand(climate(true, temperature, minutes, this.t)); return true;
     });
-    this.homey.flow.getActionCard('stop_climate').registerRunListener(async ({ device }) => { await device.sendCommand(climate(false)); return true; });
+    this.homey.flow.getActionCard('stop_climate').registerRunListener(async ({ device }) => { await device.sendCommand(climate(false, undefined, undefined, this.t)); return true; });
     for (const [card, capability] of Object.entries({ is_charging: 'zeekr_charging', is_plugged: 'zeekr_plugged', is_locked: 'zeekr_locked' })) {
       this.homey.flow.getConditionCard(card).registerRunListener(async ({ device }) => {
         device.requireFresh();
         const value = device.getCapabilityValue(capability);
-        if (typeof value !== 'boolean') throw new Error('Värdet saknas i bilens svar.');
+        if (typeof value !== 'boolean') throw new Error(this.t('runtime.value_missing'));
         return value;
       });
     }
     this.homey.flow.getConditionCard('battery_below').registerRunListener(async ({ device, level }) => {
       device.requireFresh();
       const value = device.getCapabilityValue('measure_battery');
-      if (typeof value !== 'number') throw new Error('Batterinivån saknas i bilens svar.');
+      if (typeof value !== 'number') throw new Error(this.t('runtime.battery_missing'));
       return value < level;
     });
-    this.log('Zeekr v0.2.0 — expanded community beta');
+    this.log('Zeekr v0.2.1 — community release');
   }
   getConfigInfo() { return publicConfig(this.homey.settings.get('account')); }
   getClient() {
     const config = this.homey.settings.get('account');
-    if (!config) throw new Error('Öppna appinställningarna och anslut ditt Zeekr-konto med nyckelfilen.');
+    if (!config) throw new Error(this.t('runtime.configure_account'));
     const key = fingerprint(config);
     if (!this.client || this.clientKey !== key) {
       const saved = this.homey.settings.get('session');
       this.clientKey = key;
       this.client = new ZeekrClient(config, {
+        translate: this.t,
         session: saved?.configKey === key ? saved.session : null,
         onSession: async session => {
           if (this.clientKey === key) this.homey.settings.set('session', { configKey: key, session });
@@ -52,11 +55,11 @@ class ZeekrApp extends Homey.App {
     return this.client;
   }
   async saveConfig(input) {
-    if (this.saving) throw new Error('Anslutning pågår. Vänta tills den är klar.');
+    if (this.saving) throw new Error(this.t('runtime.busy_login'));
     this.saving = true;
     try {
-      const config = makeConfig(input, this.homey.settings.get('account') || {});
-      const candidate = new ZeekrClient(config);
+      const config = makeConfig(input, this.homey.settings.get('account') || {}, this.t);
+      const candidate = new ZeekrClient(config, { translate: this.t });
       const vehicles = await candidate.vehicles();
       // Keep the existing working account if validation/login fails.
       this.homey.settings.set('account', config);

@@ -1,4 +1,8 @@
 {
+  "0.2.1": {
+    "en": "Promote expanded cloud controls to the main community release. Add English and Swedish pairing, settings, runtime messages and complete release/setup guides. Vehicle command support still requires testing on your model.",
+    "sv": "Gör de utökade molnfunktionerna till huvudversion. Lägger till engelska och svenska i parkoppling, inställningar, driftmeddelanden och kompletta versions-/setupguider. Bilkommandon behöver fortfarande testas mot din modell."
+  },
   "0.2.0": {
     "en": "Add documented cloud lock/unlock, window, lid, climate, seat, charging limit and schedule requests, plus extended reported telemetry. Model support requires vehicle testing.",
     "sv": "Lägger till dokumenterade molnkommandon för lås, fönster, luckor, klimat, säten, laddgräns och scheman samt utökad rapporterad telemetri. Modellstödet behöver testas mot bilen."

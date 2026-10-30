@@ -5,6 +5,8 @@ const Module = require('node:module');
 const load = Module._load;
 class MockDevice {
   constructor() { this.values = {}; this.available = true; this.timers = []; this.events = []; this.calls = 0; this.statusData = { additionalVehicleStatus: { electricVehicleStatus: { chargeLevel: '10', chargerState: '2', statusOfChargerConnection: '1' } } }; }
+  registerCapabilityListener(capability, listener) { (this.listeners ||= {})[capability] = listener; }
+  async addCapability(capability) { (this.added ||= []).push(capability); }
   getData() { return { vin: 'L6T79XXXXXXXX0001' }; }
   getAvailable() { return this.available; }
   hasCapability() { return true; }
@@ -20,7 +22,7 @@ const Device = require('../drivers/zeekr/device');
 Module._load = load;
 function device() {
   const d = new Device();
-  const client = { status: async () => { d.calls++; return d.statusData; }, charging: async () => ({ chargePower: '10.623' }), remote: async () => {} };
+  const client = { status: async () => { d.calls++; return d.statusData; }, charging: async () => ({ chargePower: '10.623' }), remote: async () => {}, remoteState: async () => ({}), chargeLimit: async () => ({}), chargePlan: async () => ({}), travelPlan: async () => ({}) };
   d.homey = { settings: { get: () => ({ interval: 300 }) },
     app: { getClient: () => client }, flow: { getDeviceTriggerCard: id => ({ trigger: async (_device, tokens) => d.events.push({ id, tokens }) }) },
     setTimeout: (callback, ms) => { const timer = { callback, ms }; d.timers.push(timer); return timer; }, clearTimeout: timer => { timer.cleared = true; } };
@@ -60,4 +62,28 @@ test('delete cancels timers and an in-flight response cannot update the device',
   const pending = d.refresh(); await d.onDeleted();
   release({ additionalVehicleStatus: { electricVehicleStatus: { chargeLevel: 99 } } }); await pending;
   assert.equal(d.values.measure_battery, 10); assert.ok(d.timers.every(t => t.cleared));
+});
+test('upgrade adds missing capabilities and registers buttons without sending commands', async()=>{
+  const {d,client}=device();let sends=0;client.remote=async()=>{sends++;};
+  d.driver={manifest:{capabilities:['measure_battery','button.unlock','zeekr_charge_limit']}};
+  const caps=new Set(['measure_battery']);d.hasCapability=k=>caps.has(k);d.addCapability=async k=>{caps.add(k);(d.added||=[]).push(k);};
+  await d.onInit();assert.deepEqual(d.added,['button.unlock','zeekr_charge_limit']);assert.equal(sends,0);assert.equal(typeof d.listeners['button.unlock'],'function');assert.equal(d.values.measure_battery,10);
+});
+test('unlock requests acceptance without changing observed lock and shares command cooldown', async()=>{
+  const {d,client}=device();await d.onInit();d.values.zeekr_locked=true;const sent=[];client.remote=async(vin,p)=>sent.push(p);
+  await d.listeners['button.unlock']();assert.equal(sent[0].serviceId,'RDU');assert.equal(d.values.zeekr_locked,true);
+  await assert.rejects(d.performAction('lock'),/tio sekunder/);assert.equal(sent.length,1);
+});
+test('failed optional endpoint clears prior supplemental state while keeping primary available', async()=>{
+  const {d,client}=device();client.chargeLimit=async()=>({soc:'800'});await d.onInit();assert.equal(d.values.zeekr_charge_limit,80);
+  d.lastAttempt=0;client.chargeLimit=async()=>{throw Error('unsupported');};await d.refresh();assert.equal(d.values.zeekr_charge_limit,null);assert.equal(d.values.zeekr_supplement_sync,null);assert.equal(d.available,true);assert.match(d.warning,/tilläggsvärden/);
+});
+test('invalid input and unreadable existing plan cannot send a vehicle command', async()=>{
+  const {d,client}=device();await d.onInit();let writes=0;client.setTravelPlan=async()=>{writes++;};client.remote=async()=>{writes++;};
+  await assert.rejects(d.performAction('set_charge_limit',{level:81}),/steg/);assert.equal(d.lastCommand,0);
+  await assert.rejects(d.performAction('disable_departure'),/befintlig plan/);assert.equal(writes,0);
+});
+test('deleting device while reading a plan prevents its later control POST', async()=>{
+  const {d,client}=device();await d.onInit();let release,writes=0;client.travelPlan=()=>new Promise(r=>{release=r;});client.setTravelPlan=async()=>{writes++;};
+  const pending=d.performAction('disable_departure');await d.onDeleted();release({command:'start',timerId:'4',scheduleList:[]});await assert.rejects(pending,/ändrades/);assert.equal(writes,0);
 });

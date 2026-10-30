@@ -52,3 +52,8 @@ test('pairing excludes an already paired VIN and stores no credentials in device
   const result = await handlers.list_devices(); assert.equal(result.length, 1);
   assert.deepEqual(Object.keys(result[0].data), ['vin']); assert.match(result[0].name, /001/);
 });
+test('every expanded Flow card is registered and dispatches its own ID and arguments',async()=>{
+  const {a,listeners}=app();await a.onInit();const ids=require('../lib/expanded-actions.json'),calls=[];
+  const device={performAction:async(id,args)=>{calls.push({id,args});return true;}};
+  for(const id of ids){const args={device,level:80};assert.equal(await listeners[id](args),true);assert.equal(calls.at(-1).id,id);assert.deepEqual(calls.at(-1).args,{level:80});}
+});

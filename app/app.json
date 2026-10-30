@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.rglabs.zeekr",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "compatibility": ">=12.9.0",
   "runtime": "nodejs",
   "platforms": [
@@ -67,6 +67,7 @@
       }
     ]
   },
+  "source": "https://github.com/homeyrglabs/Zeekr-Homey",
   "flow": {
     "triggers": [
       {
@@ -218,6 +219,204 @@
     "actions": [
       {
         "title": {
+          "en": "Request charge lid closing",
+          "sv": "Begär stängning av laddlucka"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "close_charge_lid"
+      },
+      {
+        "title": {
+          "en": "Request sunshade closing",
+          "sv": "Begär stängning av solgardin"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "close_sunshade"
+      },
+      {
+        "title": {
+          "en": "Request all windows closed",
+          "sv": "Begär stängning av alla fönster"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "close_windows"
+      },
+      {
+        "title": {
+          "en": "Disable existing charge plan",
+          "sv": "Inaktivera befintligt laddschema"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "disable_charge_plan"
+      },
+      {
+        "title": {
+          "en": "Disable existing departure plan",
+          "sv": "Inaktivera befintlig avgångsplan"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "disable_departure"
+      },
+      {
+        "title": {
+          "en": "Request light flashing",
+          "sv": "Begär blinkning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "flash_lights"
+      },
+      {
+        "title": {
+          "en": "Request horn and light flashing",
+          "sv": "Begär tuta och blinkning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "honk_flash"
+      },
+      {
+        "title": {
+          "en": "Request door locking",
+          "sv": "Begär låsning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "lock"
+      },
+      {
+        "title": {
+          "en": "Request charge lid opening",
+          "sv": "Begär öppning av laddlucka"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "open_charge_lid"
+      },
+      {
+        "title": {
+          "en": "Request sunshade opening",
+          "sv": "Begär öppning av solgardin"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "open_sunshade"
+      },
+      {
+        "title": {
+          "en": "Request all windows open",
+          "sv": "Begär öppning av alla fönster"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "open_windows"
+      },
+      {
+        "title": {
           "en": "Refresh vehicle status",
           "sv": "Uppdatera bilstatus"
         },
@@ -229,6 +428,299 @@
           }
         ],
         "id": "refresh"
+      },
+      {
+        "title": {
+          "en": "Request front hood release",
+          "sv": "Begär frigöring av främre huv"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "release_hood"
+      },
+      {
+        "title": {
+          "en": "Request trunk release",
+          "sv": "Begär frigöring av baklucka"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "release_trunk"
+      },
+      {
+        "title": {
+          "en": "Request charging limit",
+          "sv": "Begär laddgräns"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "level",
+            "type": "number",
+            "title": {
+              "en": "SOC (%)",
+              "sv": "SOC (%)"
+            },
+            "min": 50,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "titleFormatted": {
+          "en": "Request charging limit [[level]]",
+          "sv": "Begär laddgräns [[level]]"
+        },
+        "id": "set_charge_limit"
+      },
+      {
+        "title": {
+          "en": "Replace and enable charging schedule",
+          "sv": "Ersätt och aktivera laddschema"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "start",
+            "type": "text",
+            "title": {
+              "en": "Start HH:MM (vehicle time)",
+              "sv": "Start HH:MM (bilens tid)"
+            }
+          },
+          {
+            "name": "end",
+            "type": "text",
+            "title": {
+              "en": "End HH:MM (vehicle time)",
+              "sv": "Slut HH:MM (bilens tid)"
+            }
+          },
+          {
+            "name": "cycle",
+            "type": "checkbox",
+            "title": {
+              "en": "Battery cycle conditioning",
+              "sv": "Battericykelkonditionering"
+            }
+          },
+          {
+            "name": "conditioning",
+            "type": "checkbox",
+            "title": {
+              "en": "Battery temperature conditioning",
+              "sv": "Temperaturkonditionering av batteri"
+            }
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "titleFormatted": {
+          "en": "Replace and enable charging schedule [[start]], [[end]], [[cycle]], [[conditioning]]",
+          "sv": "Ersätt och aktivera laddschema [[start]], [[end]], [[cycle]], [[conditioning]]"
+        },
+        "id": "set_charge_plan"
+      },
+      {
+        "title": {
+          "en": "Replace departure plan with one departure",
+          "sv": "Ersätt avgångsplan med en engångsavgång"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "when",
+            "type": "text",
+            "title": {
+              "en": "ISO date with timezone",
+              "sv": "ISO-datum med tidszon"
+            }
+          },
+          {
+            "name": "ac",
+            "type": "checkbox",
+            "title": {
+              "en": "Cabin preconditioning",
+              "sv": "Kupéförkonditionering"
+            }
+          },
+          {
+            "name": "wheel",
+            "type": "checkbox",
+            "title": {
+              "en": "Steering wheel heating",
+              "sv": "Rattvärme"
+            }
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "titleFormatted": {
+          "en": "Replace departure plan with one departure [[when]], [[ac]], [[wheel]]",
+          "sv": "Ersätt avgångsplan med en engångsavgång [[when]], [[ac]], [[wheel]]"
+        },
+        "id": "set_departure"
+      },
+      {
+        "title": {
+          "en": "Request seat heating or ventilation",
+          "sv": "Begär sätesvärme eller ventilation"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "seat",
+            "type": "dropdown",
+            "title": {
+              "en": "Seat",
+              "sv": "Säte"
+            },
+            "values": [
+              {
+                "id": "driver",
+                "label": {
+                  "en": "Driver",
+                  "sv": "Förare"
+                }
+              },
+              {
+                "id": "passenger",
+                "label": {
+                  "en": "Passenger",
+                  "sv": "Passagerare"
+                }
+              },
+              {
+                "id": "rear_left",
+                "label": {
+                  "en": "Rear left",
+                  "sv": "Bak vänster"
+                }
+              },
+              {
+                "id": "rear_right",
+                "label": {
+                  "en": "Rear right",
+                  "sv": "Bak höger"
+                }
+              }
+            ]
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "sv": "Läge"
+            },
+            "values": [
+              {
+                "id": "heat",
+                "label": {
+                  "en": "Heating",
+                  "sv": "Värme"
+                }
+              },
+              {
+                "id": "vent",
+                "label": {
+                  "en": "Ventilation (front only)",
+                  "sv": "Ventilation (endast fram)"
+                }
+              }
+            ]
+          },
+          {
+            "name": "level",
+            "type": "number",
+            "title": {
+              "en": "Level (0 = off)",
+              "sv": "Nivå (0 = av)"
+            },
+            "min": 0,
+            "max": 3,
+            "step": 1
+          },
+          {
+            "name": "minutes",
+            "type": "number",
+            "title": {
+              "en": "Minutes",
+              "sv": "Minuter"
+            },
+            "min": 1,
+            "max": 60,
+            "step": 1
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "titleFormatted": {
+          "en": "Request seat heating or ventilation [[seat]], [[mode]], [[level]], [[minutes]]",
+          "sv": "Begär sätesvärme eller ventilation [[seat]], [[mode]], [[level]], [[minutes]]"
+        },
+        "id": "set_seat"
+      },
+      {
+        "title": {
+          "en": "Request AC ventilation start",
+          "sv": "Begär start av kupéventilation"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "start_ac_vent"
       },
       {
         "title": {
@@ -287,10 +779,97 @@
           "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
         },
         "titleFormatted": {
-          "en": "Start cabin climate at [[temperature]] °C for [[minutes]] minutes",
-          "sv": "Starta kupéklimat på [[temperature]] °C i [[minutes]] minuter"
+          "en": "Start cabin climate [[temperature]], [[minutes]]",
+          "sv": "Starta kupéklimat [[temperature]], [[minutes]]"
         },
         "id": "start_climate"
+      },
+      {
+        "title": {
+          "en": "Request defrost start",
+          "sv": "Begär avfrostning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "start_defrost"
+      },
+      {
+        "title": {
+          "en": "Request sentry mode on",
+          "sv": "Begär övervakningsläge på"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "start_sentry"
+      },
+      {
+        "title": {
+          "en": "Request steering wheel heating",
+          "sv": "Begär rattvärme"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          },
+          {
+            "name": "minutes",
+            "type": "number",
+            "title": {
+              "en": "Minutes",
+              "sv": "Minuter"
+            },
+            "min": 1,
+            "max": 60,
+            "step": 1
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "titleFormatted": {
+          "en": "Request steering wheel heating [[minutes]]",
+          "sv": "Begär rattvärme [[minutes]]"
+        },
+        "id": "start_wheel_heat"
+      },
+      {
+        "title": {
+          "en": "Request AC ventilation stop",
+          "sv": "Begär stopp av kupéventilation"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "stop_ac_vent"
       },
       {
         "title": {
@@ -327,6 +906,114 @@
           "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
         },
         "id": "stop_climate"
+      },
+      {
+        "title": {
+          "en": "Request defrost stop",
+          "sv": "Begär stopp av avfrostning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "stop_defrost"
+      },
+      {
+        "title": {
+          "en": "Request parking comfort off",
+          "sv": "Begär parkeringskomfort av"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "stop_parking_comfort"
+      },
+      {
+        "title": {
+          "en": "Request sentry mode off",
+          "sv": "Begär övervakningsläge av"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "stop_sentry"
+      },
+      {
+        "title": {
+          "en": "Request steering wheel heating off",
+          "sv": "Begär stopp av rattvärme"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "stop_wheel_heat"
+      },
+      {
+        "title": {
+          "en": "Request door unlocking",
+          "sv": "Begär upplåsning"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "unlock"
+      },
+      {
+        "title": {
+          "en": "Request window ventilation",
+          "sv": "Begär vädringsläge för fönstren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zeekr"
+          }
+        ],
+        "hint": {
+          "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+          "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+        },
+        "id": "ventilate_windows"
       }
     ]
   },
@@ -360,7 +1047,77 @@
         "zeekr_tyre_rl",
         "zeekr_tyre_rr",
         "zeekr_status",
-        "zeekr_last_sync"
+        "zeekr_last_sync",
+        "button.lock",
+        "button.unlock",
+        "button.release_trunk",
+        "button.release_hood",
+        "button.close_windows",
+        "button.ventilate_windows",
+        "button.open_charge_lid",
+        "button.close_charge_lid",
+        "button.flash_lights",
+        "button.honk_flash",
+        "zeekr_charge_limit",
+        "zeekr_charge_minutes",
+        "zeekr_charge_speed",
+        "zeekr_trip_distance",
+        "zeekr_trip_speed",
+        "zeekr_consumption",
+        "zeekr_range_20",
+        "zeekr_range_100",
+        "zeekr_latitude",
+        "zeekr_longitude",
+        "zeekr_defrost",
+        "zeekr_wheel_heat",
+        "zeekr_ac_vent",
+        "zeekr_sentry",
+        "zeekr_hood_open",
+        "zeekr_trunk_open",
+        "zeekr_trunk_locked",
+        "zeekr_charge_lid_open",
+        "zeekr_park_brake",
+        "zeekr_sunshade_position",
+        "zeekr_charge_plan",
+        "zeekr_departure_plan",
+        "zeekr_charge_plan_start",
+        "zeekr_charge_plan_end",
+        "zeekr_departure_time",
+        "zeekr_supplement_sync",
+        "zeekr_door_driver",
+        "zeekr_door_lock_driver",
+        "zeekr_window_driver",
+        "zeekr_seat_heat_driver",
+        "zeekr_seat_vent_driver",
+        "zeekr_door_passenger",
+        "zeekr_door_lock_passenger",
+        "zeekr_window_passenger",
+        "zeekr_seat_heat_passenger",
+        "zeekr_seat_vent_passenger",
+        "zeekr_door_rear_left",
+        "zeekr_door_lock_rear_left",
+        "zeekr_window_rear_left",
+        "zeekr_seat_heat_rear_left",
+        "zeekr_door_rear_right",
+        "zeekr_door_lock_rear_right",
+        "zeekr_window_rear_right",
+        "zeekr_seat_heat_rear_right",
+        "zeekr_tyre_temp_fl",
+        "zeekr_tyre_warn_fl",
+        "zeekr_tyre_hot_fl",
+        "zeekr_tyre_temp_fr",
+        "zeekr_tyre_warn_fr",
+        "zeekr_tyre_hot_fr",
+        "zeekr_tyre_temp_rl",
+        "zeekr_tyre_warn_rl",
+        "zeekr_tyre_hot_rl",
+        "zeekr_tyre_temp_rr",
+        "zeekr_tyre_warn_rr",
+        "zeekr_tyre_hot_rr",
+        "zeekr_window_open_driver",
+        "zeekr_window_open_passenger",
+        "zeekr_window_open_rear_left",
+        "zeekr_window_open_rear_right"
       ],
       "capabilitiesOptions": {
         "measure_power": {
@@ -373,6 +1130,66 @@
           "title": {
             "en": "Cabin temperature",
             "sv": "Kupétemperatur"
+          }
+        },
+        "button.lock": {
+          "title": {
+            "en": "Request door locking",
+            "sv": "Begär låsning"
+          }
+        },
+        "button.unlock": {
+          "title": {
+            "en": "Request door unlocking",
+            "sv": "Begär upplåsning"
+          }
+        },
+        "button.release_trunk": {
+          "title": {
+            "en": "Request trunk release",
+            "sv": "Begär frigöring av baklucka"
+          }
+        },
+        "button.release_hood": {
+          "title": {
+            "en": "Request front hood release",
+            "sv": "Begär frigöring av främre huv"
+          }
+        },
+        "button.close_windows": {
+          "title": {
+            "en": "Request all windows closed",
+            "sv": "Begär stängning av alla fönster"
+          }
+        },
+        "button.ventilate_windows": {
+          "title": {
+            "en": "Request window ventilation",
+            "sv": "Begär vädringsläge för fönstren"
+          }
+        },
+        "button.open_charge_lid": {
+          "title": {
+            "en": "Request charge lid opening",
+            "sv": "Begär öppning av laddlucka"
+          }
+        },
+        "button.close_charge_lid": {
+          "title": {
+            "en": "Request charge lid closing",
+            "sv": "Begär stängning av laddlucka"
+          }
+        },
+        "button.flash_lights": {
+          "title": {
+            "en": "Request light flashing",
+            "sv": "Begär blinkning"
+          }
+        },
+        "button.honk_flash": {
+          "title": {
+            "en": "Request horn and light flashing",
+            "sv": "Begär tuta och blinkning"
           }
         }
       },
@@ -404,6 +1221,115 @@
     }
   ],
   "capabilities": {
+    "zeekr_ac_vent": {
+      "type": "boolean",
+      "title": {
+        "en": "AC ventilation running",
+        "sv": "Kupéventilation aktiv"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_charge_lid_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Charge lid open",
+        "sv": "Laddlucka öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_charge_limit": {
+      "type": "number",
+      "title": {
+        "en": "Charging limit",
+        "sv": "Laddgräns"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "zeekr_charge_minutes": {
+      "type": "number",
+      "title": {
+        "en": "Charging minutes remaining",
+        "sv": "Laddningstid kvar"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "min",
+        "sv": "min"
+      },
+      "min": 0,
+      "max": 2046
+    },
+    "zeekr_charge_plan": {
+      "type": "boolean",
+      "title": {
+        "en": "Charge plan enabled",
+        "sv": "Laddschema aktiverat"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_charge_plan_end": {
+      "type": "string",
+      "title": {
+        "en": "Charge plan end (vehicle time)",
+        "sv": "Laddschema slut (bilens tid)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_charge_plan_start": {
+      "type": "string",
+      "title": {
+        "en": "Charge plan start (vehicle time)",
+        "sv": "Laddschema start (bilens tid)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_charge_speed": {
+      "type": "number",
+      "title": {
+        "en": "Charging speed",
+        "sv": "Laddhastighet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "km/h",
+        "sv": "km/h"
+      },
+      "min": 0,
+      "max": 2000
+    },
     "zeekr_charging": {
       "type": "boolean",
       "title": {
@@ -426,6 +1352,156 @@
       "uiComponent": "sensor",
       "icon": "/assets/icon.svg"
     },
+    "zeekr_consumption": {
+      "type": "number",
+      "title": {
+        "en": "Average consumption",
+        "sv": "Medelförbrukning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "kWh/100 km",
+        "sv": "kWh/100 km"
+      },
+      "min": 0,
+      "max": 200
+    },
+    "zeekr_defrost": {
+      "type": "boolean",
+      "title": {
+        "en": "Defrost active",
+        "sv": "Avfrostning aktiv"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_departure_plan": {
+      "type": "boolean",
+      "title": {
+        "en": "Departure plan enabled",
+        "sv": "Avgångsplan aktiverad"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_departure_time": {
+      "type": "string",
+      "title": {
+        "en": "Departure time (UTC)",
+        "sv": "Avgångstid (UTC)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_driver": {
+      "type": "boolean",
+      "title": {
+        "en": "Driver door open",
+        "sv": "Förardörr öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_lock_driver": {
+      "type": "boolean",
+      "title": {
+        "en": "Driver door locked",
+        "sv": "Förardörr låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_lock_passenger": {
+      "type": "boolean",
+      "title": {
+        "en": "Passenger door locked",
+        "sv": "Passagerardörr låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_lock_rear_left": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear left door locked",
+        "sv": "Bak vänsterdörr låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_lock_rear_right": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear right door locked",
+        "sv": "Bak högerdörr låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_passenger": {
+      "type": "boolean",
+      "title": {
+        "en": "Passenger door open",
+        "sv": "Passagerardörr öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_rear_left": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear left door open",
+        "sv": "Bak vänsterdörr öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_door_rear_right": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear right door open",
+        "sv": "Bak högerdörr öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_hood_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Front hood open",
+        "sv": "Främre huv öppen"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
     "zeekr_last_sync": {
       "type": "string",
       "title": {
@@ -437,6 +1513,25 @@
       "uiComponent": "sensor",
       "icon": "/assets/icon.svg"
     },
+    "zeekr_latitude": {
+      "type": "number",
+      "title": {
+        "en": "Latitude",
+        "sv": "Latitud"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 6,
+      "units": {
+        "en": "°",
+        "sv": "°"
+      },
+      "min": -90,
+      "max": 90,
+      "insights": false
+    },
     "zeekr_locked": {
       "type": "boolean",
       "title": {
@@ -447,6 +1542,25 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/assets/icon.svg"
+    },
+    "zeekr_longitude": {
+      "type": "number",
+      "title": {
+        "en": "Longitude",
+        "sv": "Longitud"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 6,
+      "units": {
+        "en": "°",
+        "sv": "°"
+      },
+      "min": -180,
+      "max": 180,
+      "insights": false
     },
     "zeekr_odometer": {
       "type": "number",
@@ -465,6 +1579,17 @@
       "decimals": 1,
       "insights": true,
       "min": 0
+    },
+    "zeekr_park_brake": {
+      "type": "boolean",
+      "title": {
+        "en": "Parking brake active",
+        "sv": "Parkeringsbroms aktiv"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
     },
     "zeekr_plugged": {
       "type": "boolean",
@@ -495,11 +1620,228 @@
       "insights": true,
       "min": 0
     },
+    "zeekr_range_100": {
+      "type": "number",
+      "title": {
+        "en": "Range at 100% SOC (API)",
+        "sv": "Räckvidd vid 100 % (API)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "km",
+        "sv": "km"
+      },
+      "min": 0,
+      "max": 2000
+    },
+    "zeekr_range_20": {
+      "type": "number",
+      "title": {
+        "en": "Range at 20% SOC (API)",
+        "sv": "Räckvidd vid 20 % (API)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "km",
+        "sv": "km"
+      },
+      "min": 0,
+      "max": 2000
+    },
+    "zeekr_seat_heat_driver": {
+      "type": "number",
+      "title": {
+        "en": "Driver seat heat level",
+        "sv": "Förar sätesvärme"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_seat_heat_passenger": {
+      "type": "number",
+      "title": {
+        "en": "Passenger seat heat level",
+        "sv": "Passagerar sätesvärme"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_seat_heat_rear_left": {
+      "type": "number",
+      "title": {
+        "en": "Rear left seat heat level",
+        "sv": "Bak vänster sätesvärme"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_seat_heat_rear_right": {
+      "type": "number",
+      "title": {
+        "en": "Rear right seat heat level",
+        "sv": "Bak höger sätesvärme"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_seat_vent_driver": {
+      "type": "number",
+      "title": {
+        "en": "Driver seat ventilation level",
+        "sv": "Förar sätesventilation"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_seat_vent_passenger": {
+      "type": "number",
+      "title": {
+        "en": "Passenger seat ventilation level",
+        "sv": "Passagerar sätesventilation"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "min": 0,
+      "max": 3
+    },
+    "zeekr_sentry": {
+      "type": "boolean",
+      "title": {
+        "en": "Sentry mode",
+        "sv": "Övervakningsläge"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
     "zeekr_status": {
       "type": "string",
       "title": {
         "en": "Connection status",
         "sv": "Anslutningsstatus"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_sunshade_position": {
+      "type": "number",
+      "title": {
+        "en": "Sunshade position (open)",
+        "sv": "Solgardinens öppning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "zeekr_supplement_sync": {
+      "type": "string",
+      "title": {
+        "en": "Supplementary API read (UTC)",
+        "sv": "Senaste tilläggsavläsning (UTC)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_trip_distance": {
+      "type": "number",
+      "title": {
+        "en": "Trip 2 distance",
+        "sv": "Tripp 2 sträcka"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "km",
+        "sv": "km"
+      },
+      "min": 0
+    },
+    "zeekr_trip_speed": {
+      "type": "number",
+      "title": {
+        "en": "Trip 2 average speed",
+        "sv": "Tripp 2 medelhastighet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "km/h",
+        "sv": "km/h"
+      },
+      "min": 0,
+      "max": 400
+    },
+    "zeekr_trunk_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "Trunk locked",
+        "sv": "Baklucka låst"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_trunk_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Trunk open",
+        "sv": "Baklucka öppen"
       },
       "getable": true,
       "setable": false,
@@ -544,6 +1886,50 @@
       "min": 0,
       "max": 600
     },
+    "zeekr_tyre_hot_fl": {
+      "type": "boolean",
+      "title": {
+        "en": "Front left tyre temperature warning",
+        "sv": "Fram vänster däcktemperaturvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_hot_fr": {
+      "type": "boolean",
+      "title": {
+        "en": "Front right tyre temperature warning",
+        "sv": "Fram höger däcktemperaturvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_hot_rl": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear left tyre temperature warning",
+        "sv": "Bak vänster däcktemperaturvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_hot_rr": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear right tyre temperature warning",
+        "sv": "Bak höger däcktemperaturvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
     "zeekr_tyre_rl": {
       "type": "number",
       "title": {
@@ -581,7 +1967,249 @@
       "insights": true,
       "min": 0,
       "max": 600
+    },
+    "zeekr_tyre_temp_fl": {
+      "type": "number",
+      "title": {
+        "en": "Front left tyre temperature",
+        "sv": "Fram vänster däcktemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "°C",
+        "sv": "°C"
+      },
+      "min": -60,
+      "max": 150
+    },
+    "zeekr_tyre_temp_fr": {
+      "type": "number",
+      "title": {
+        "en": "Front right tyre temperature",
+        "sv": "Fram höger däcktemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "°C",
+        "sv": "°C"
+      },
+      "min": -60,
+      "max": 150
+    },
+    "zeekr_tyre_temp_rl": {
+      "type": "number",
+      "title": {
+        "en": "Rear left tyre temperature",
+        "sv": "Bak vänster däcktemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "°C",
+        "sv": "°C"
+      },
+      "min": -60,
+      "max": 150
+    },
+    "zeekr_tyre_temp_rr": {
+      "type": "number",
+      "title": {
+        "en": "Rear right tyre temperature",
+        "sv": "Bak höger däcktemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "°C",
+        "sv": "°C"
+      },
+      "min": -60,
+      "max": 150
+    },
+    "zeekr_tyre_warn_fl": {
+      "type": "boolean",
+      "title": {
+        "en": "Front left tyre warning",
+        "sv": "Fram vänster däckvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_warn_fr": {
+      "type": "boolean",
+      "title": {
+        "en": "Front right tyre warning",
+        "sv": "Fram höger däckvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_warn_rl": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear left tyre warning",
+        "sv": "Bak vänster däckvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_tyre_warn_rr": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear right tyre warning",
+        "sv": "Bak höger däckvarning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_wheel_heat": {
+      "type": "boolean",
+      "title": {
+        "en": "Steering wheel heating",
+        "sv": "Rattvärme"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_window_driver": {
+      "type": "number",
+      "title": {
+        "en": "Driver window opening",
+        "sv": "Förarfönstrets öppning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "zeekr_window_open_driver": {
+      "type": "boolean",
+      "title": {
+        "en": "Driver window open",
+        "sv": "Förarfönster öppet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_window_open_passenger": {
+      "type": "boolean",
+      "title": {
+        "en": "Passenger window open",
+        "sv": "Passagerarfönster öppet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_window_open_rear_left": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear left window open",
+        "sv": "Bak vänsterfönster öppet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_window_open_rear_right": {
+      "type": "boolean",
+      "title": {
+        "en": "Rear right window open",
+        "sv": "Bak högerfönster öppet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg"
+    },
+    "zeekr_window_passenger": {
+      "type": "number",
+      "title": {
+        "en": "Passenger window opening",
+        "sv": "Passagerarfönstrets öppning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "zeekr_window_rear_left": {
+      "type": "number",
+      "title": {
+        "en": "Rear left window opening",
+        "sv": "Bak vänsterfönstrets öppning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
+    },
+    "zeekr_window_rear_right": {
+      "type": "number",
+      "title": {
+        "en": "Rear right window opening",
+        "sv": "Bak högerfönstrets öppning"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icon.svg",
+      "decimals": 1,
+      "units": {
+        "en": "%",
+        "sv": "%"
+      },
+      "min": 0,
+      "max": 100
     }
-  },
-  "source": "https://github.com/homeyrglabs/Zeekr-Homey"
+  }
 }

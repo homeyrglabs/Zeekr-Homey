@@ -8,6 +8,9 @@ const fingerprint = config => createHash('sha256').update(JSON.stringify(config)
 class ZeekrApp extends Homey.App {
   async onInit() {
     this.client = null; this.clientKey = null; this.saving = false;
+    for (const id of require('./lib/expanded-actions.json')) {
+      this.homey.flow.getActionCard(id).registerRunListener(async ({ device, ...args }) => { await device.performAction(id, args); return true; });
+    }
     this.homey.flow.getActionCard('refresh').registerRunListener(async ({ device }) => { await device.refresh(); return true; });
     this.homey.flow.getActionCard('start_charging').registerRunListener(async ({ device }) => { await device.sendCommand(charging(true)); return true; });
     this.homey.flow.getActionCard('stop_charging').registerRunListener(async ({ device }) => { await device.sendCommand(charging(false)); return true; });
@@ -29,7 +32,7 @@ class ZeekrApp extends Homey.App {
       if (typeof value !== 'number') throw new Error('Batterinivån saknas i bilens svar.');
       return value < level;
     });
-    this.log('Zeekr by RG Labs v0.1.0 — private beta');
+    this.log('Zeekr v0.2.0 — expanded community beta');
   }
   getConfigInfo() { return publicConfig(this.homey.settings.get('account')); }
   getClient() {

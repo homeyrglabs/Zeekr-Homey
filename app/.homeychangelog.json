@@ -1,6 +1,6 @@
 {
-  "0.1.2": {
-    "en": "Mark the driver as an electric vehicle. Add original project contributors and store descriptions.",
-    "sv": "Markerar drivrutinen som elbil. Lägger till originalprojektens upphovspersoner och butikstexter."
+  "0.2.0": {
+    "en": "Add documented cloud lock/unlock, window, lid, climate, seat, charging limit and schedule requests, plus extended reported telemetry. Model support requires vehicle testing.",
+    "sv": "Lägger till dokumenterade molnkommandon för lås, fönster, luckor, klimat, säten, laddgräns och scheman samt utökad rapporterad telemetri. Modellstödet behöver testas mot bilen."
   }
 }

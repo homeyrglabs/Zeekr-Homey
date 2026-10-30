@@ -65,7 +65,7 @@ test('extended requests use signed encrypted-VIN endpoints; commands are never r
   assert.ok(calls[2].url.endsWith('/setChargingPlan'));assert.ok(calls[3].url.endsWith('/setTravelPlan'));
   for(const r of calls){assert.ok(r.headers['X-SIGNATURE']);assert.notEqual(r.headers['X-VIN'],vin);}
   let attempts=0;c.fetch=async()=>{attempts++;throw Error('private details');};
-  await assert.rejects(c.setTravelPlan(vin,{}),/nås/);assert.equal(attempts,1);
+  await assert.rejects(c.setTravelPlan(vin,{}),/reached/);assert.equal(attempts,1);
   attempts=0;c.fetch=async()=>{attempts++;return {ok:true,status:200,headers:new Headers(),json:async()=>({success:false,msg:'Token expired'})};};
   await assert.rejects(c.remote(vin,action('unlock').payload));assert.equal(attempts,1);
 });

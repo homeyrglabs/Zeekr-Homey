@@ -93,7 +93,7 @@ test('concurrent login is serialized and a failed login is throttled', async () 
   const results = await Promise.allSettled([c.login(), c.login(), c.login()]);
   assert.equal(attempts, 1); assert.equal(results[0].status, 'rejected');
   assert.ok(!results[0].reason.message.includes('private token'));
-  await assert.rejects(c.login(), /fem minuter/); assert.equal(attempts, 1);
+  await assert.rejects(c.login(), /five minutes/); assert.equal(attempts, 1);
 });
 test('two expired-token responses cause only one refresh', async () => {
   let logins = 0, calls = 0;
@@ -122,10 +122,10 @@ test('rate limit establishes shared backoff before any further requests', async 
   const c = new ZeekrClient(config, { session: { token: 'saved', deviceId: 'device' }, fetch: async () => {
     calls++; return { ok: false, status: 429, headers: new Headers({ 'retry-after': '300' }) };
   } });
-  await assert.rejects(c.status(vin), /begränsar/); await assert.rejects(c.status(vin), /begränsar/);
+  await assert.rejects(c.status(vin), /limiting requests/); await assert.rejects(c.status(vin), /limiting requests/);
   assert.equal(calls, 1);
 });
 test('invalid JSON and HTTP errors are actionable and never expose response bodies', async () => {
   const c = new ZeekrClient(config, { session: { token: 'saved', deviceId: 'device' }, fetch: async () => ({ ok: true, status: 200, headers: new Headers(), json: async () => { throw new Error('SECRET'); } }) });
-  await assert.rejects(c.status(vin), /ogiltigt svar/);
+  await assert.rejects(c.status(vin), /invalid response/);
 });

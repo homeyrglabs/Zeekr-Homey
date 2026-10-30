@@ -42,7 +42,7 @@ test('restart reuses matching saved session and disconnect removes account and s
   const { a, stored } = app(); await a.onInit(); await a.saveConfig(input);
   a.client = null; const c = a.getClient(); assert.equal(c.options.session.token, 'test-token');
   await a.disconnect(); assert.equal(stored.has('account'), false); assert.equal(stored.has('session'), false);
-  assert.throws(() => a.getClient(), /appinställningarna/);
+  assert.throws(() => a.getClient(), /app settings/);
 });
 test('pairing excludes an already paired VIN and stores no credentials in device data', async () => {
   const driver = new Driver(), handlers = {};

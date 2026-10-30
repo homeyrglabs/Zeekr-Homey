@@ -38,12 +38,12 @@ test('poll updates values and does not trigger changes on the first sample', asy
 test('partial charging failure clears old charge data and signals partial status', async () => {
   const { d, client } = device(); await d.onInit(); d.lastAttempt = 0;
   client.charging = async () => { throw new Error('failed'); }; await d.refresh();
-  assert.equal(d.values.measure_power, null); assert.equal(d.available, true); assert.match(d.warning, /Laddvärden/);
+  assert.equal(d.values.measure_power, null); assert.equal(d.available, true); assert.match(d.warning, /Charging readings/);
 });
 test('failed status makes conditions unavailable instead of using stale SOC', async () => {
   const { d, client } = device(); await d.onInit(); d.lastAttempt = 0;
   client.status = async () => { throw new Error('Offline'); };
-  await assert.rejects(d.refresh(), /Offline/); assert.equal(d.available, false); assert.throws(() => d.requireFresh(), /aktuell/);
+  await assert.rejects(d.refresh(), /Offline/); assert.equal(d.available, false); assert.throws(() => d.requireFresh(), /current reading/);
 });
 test('overlapping polls share one request and polling does not run faster than 30s', async () => {
   const { d } = device(); await d.onInit(); d.lastAttempt = 0;
@@ -53,8 +53,8 @@ test('overlapping polls share one request and polling does not run faster than 3
 test('command acceptance does not set observed charging or climate state', async () => {
   const { d } = device(); await d.onInit(); const before = d.values.zeekr_charging;
   await d.sendCommand({ command: 'stop', serviceId: 'RCS' });
-  assert.equal(d.values.zeekr_charging, before); assert.match(d.values.zeekr_status, /accepterat/);
-  await assert.rejects(d.sendCommand({}), /tio sekunder/);
+  assert.equal(d.values.zeekr_charging, before); assert.match(d.values.zeekr_status, /accepted/);
+  await assert.rejects(d.sendCommand({}), /ten seconds/);
 });
 test('delete cancels timers and an in-flight response cannot update the device', async () => {
   const { d, client } = device(); await d.onInit(); d.lastAttempt = 0;
@@ -72,18 +72,18 @@ test('upgrade adds missing capabilities and registers buttons without sending co
 test('unlock requests acceptance without changing observed lock and shares command cooldown', async()=>{
   const {d,client}=device();await d.onInit();d.values.zeekr_locked=true;const sent=[];client.remote=async(vin,p)=>sent.push(p);
   await d.listeners['button.unlock']();assert.equal(sent[0].serviceId,'RDU');assert.equal(d.values.zeekr_locked,true);
-  await assert.rejects(d.performAction('lock'),/tio sekunder/);assert.equal(sent.length,1);
+  await assert.rejects(d.performAction('lock'),/ten seconds/);assert.equal(sent.length,1);
 });
 test('failed optional endpoint clears prior supplemental state while keeping primary available', async()=>{
   const {d,client}=device();client.chargeLimit=async()=>({soc:'800'});await d.onInit();assert.equal(d.values.zeekr_charge_limit,80);
-  d.lastAttempt=0;client.chargeLimit=async()=>{throw Error('unsupported');};await d.refresh();assert.equal(d.values.zeekr_charge_limit,null);assert.equal(d.values.zeekr_supplement_sync,null);assert.equal(d.available,true);assert.match(d.warning,/tilläggsvärden/);
+  d.lastAttempt=0;client.chargeLimit=async()=>{throw Error('unsupported');};await d.refresh();assert.equal(d.values.zeekr_charge_limit,null);assert.equal(d.values.zeekr_supplement_sync,null);assert.equal(d.available,true);assert.match(d.warning,/supplemental readings/);
 });
 test('invalid input and unreadable existing plan cannot send a vehicle command', async()=>{
   const {d,client}=device();await d.onInit();let writes=0;client.setTravelPlan=async()=>{writes++;};client.remote=async()=>{writes++;};
-  await assert.rejects(d.performAction('set_charge_limit',{level:81}),/steg/);assert.equal(d.lastCommand,0);
-  await assert.rejects(d.performAction('disable_departure'),/befintlig plan/);assert.equal(writes,0);
+  await assert.rejects(d.performAction('set_charge_limit',{level:81}),/steps/);assert.equal(d.lastCommand,0);
+  await assert.rejects(d.performAction('disable_departure'),/existing plan/);assert.equal(writes,0);
 });
 test('deleting device while reading a plan prevents its later control POST', async()=>{
   const {d,client}=device();await d.onInit();let release,writes=0;client.travelPlan=()=>new Promise(r=>{release=r;});client.setTravelPlan=async()=>{writes++;};
-  const pending=d.performAction('disable_departure');await d.onDeleted();release({command:'start',timerId:'4',scheduleList:[]});await assert.rejects(pending,/ändrades/);assert.equal(writes,0);
+  const pending=d.performAction('disable_departure');await d.onDeleted();release({command:'start',timerId:'4',scheduleList:[]});await assert.rejects(pending,/changed/);assert.equal(writes,0);
 });

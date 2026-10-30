@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Driver seat heat level",
+    "sv": "Förar sätesvärme"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "min": 0,
+  "max": 3
+}

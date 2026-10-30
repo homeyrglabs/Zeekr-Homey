@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Trip 2 average speed",
+    "sv": "Tripp 2 medelhastighet"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "km/h",
+    "sv": "km/h"
+  },
+  "min": 0,
+  "max": 400
+}

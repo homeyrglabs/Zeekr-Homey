@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Charging speed",
+    "sv": "Laddhastighet"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "km/h",
+    "sv": "km/h"
+  },
+  "min": 0,
+  "max": 2000
+}

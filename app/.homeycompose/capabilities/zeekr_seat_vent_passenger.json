@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Passenger seat ventilation level",
+    "sv": "Passagerar sätesventilation"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "min": 0,
+  "max": 3
+}

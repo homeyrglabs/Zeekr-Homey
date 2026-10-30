@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Latitude",
+    "sv": "Latitud"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 6,
+  "units": {
+    "en": "°",
+    "sv": "°"
+  },
+  "min": -90,
+  "max": 90,
+  "insights": false
+}

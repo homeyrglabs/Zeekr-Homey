@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Rear right tyre temperature",
+    "sv": "Bak höger däcktemperatur"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "°C",
+    "sv": "°C"
+  },
+  "min": -60,
+  "max": 150
+}

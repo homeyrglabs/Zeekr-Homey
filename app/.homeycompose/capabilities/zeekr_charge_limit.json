@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Charging limit",
+    "sv": "Laddgräns"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "%",
+    "sv": "%"
+  },
+  "min": 0,
+  "max": 100
+}

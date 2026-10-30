@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Charge plan end (vehicle time)",
+    "sv": "Laddschema slut (bilens tid)"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Supplementary API read (UTC)",
+    "sv": "Senaste tilläggsavläsning (UTC)"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg"
+}

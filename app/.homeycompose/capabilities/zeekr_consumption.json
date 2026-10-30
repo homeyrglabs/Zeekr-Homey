@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Average consumption",
+    "sv": "Medelförbrukning"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "kWh/100 km",
+    "sv": "kWh/100 km"
+  },
+  "min": 0,
+  "max": 200
+}

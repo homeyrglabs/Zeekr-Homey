@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Trip 2 distance",
+    "sv": "Tripp 2 sträcka"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "km",
+    "sv": "km"
+  },
+  "min": 0
+}

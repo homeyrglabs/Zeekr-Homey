@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Front left tyre temperature",
+    "sv": "Fram vänster däcktemperatur"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "°C",
+    "sv": "°C"
+  },
+  "min": -60,
+  "max": 150
+}

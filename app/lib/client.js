@@ -122,6 +122,12 @@ class ZeekrClient {
   }
   status(vin) { return this._signed('GET', 'ms-vehicle-status/api/v1.0/vehicle/status/latest?latest=false&target=new', undefined, vin); }
   charging(vin) { return this._signed('GET', 'ms-vehicle-status/api/v1.0/vehicle/status/qrvs', undefined, vin); }
+  remoteState(vin) { return this._signed('GET', 'ms-app-bff/api/v1.0/remoteControl/getVehicleState', undefined, vin); }
+  chargeLimit(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getLatestSoc', undefined, vin); }
+  chargePlan(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getChargingPlan', undefined, vin); }
+  travelPlan(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getLatestTravelPlan', undefined, vin); }
+  setChargePlan(vin, body) { return this._signed('POST', 'ms-charge-manage/api/v1.0/charge/setChargingPlan', body, vin, false); }
+  setTravelPlan(vin, body) { return this._signed('POST', 'ms-charge-manage/api/v1.0/charge/setTravelPlan', body, vin, false); }
   remote(vin, payload) {
     const path = payload.serviceId === 'RCS' ? 'ms-charge-manage/api/v1.0/charge/control' : 'ms-remote-control/v1.0/remoteControl/control';
     // Never repeat POST after network timeout or HTTP failure: acceptance is unknown.

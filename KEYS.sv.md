@@ -1,5 +1,8 @@
 # Ta fram nyckelfilen på Windows
 
+[Hämta senaste versionen](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) · [Alla versioner](https://github.com/homeyrglabs/Zeekr-Homey/releases) · [English](KEYS.md)
+
+
 Det här är API-värden som Homey behöver för att prata med Zeekrs EU-server. Det är inte bilens digitala környckel och de hämtas inte ur Homey. Använd endast dina egna APK-filer/behörigt tillgängliga appfiler. Inga nyckelvärden medföljer.
 
 ## Metoden i det här paketet

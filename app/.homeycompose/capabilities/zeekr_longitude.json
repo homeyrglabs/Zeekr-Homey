@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Longitude",
+    "sv": "Longitud"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 6,
+  "units": {
+    "en": "°",
+    "sv": "°"
+  },
+  "min": -180,
+  "max": 180,
+  "insights": false
+}

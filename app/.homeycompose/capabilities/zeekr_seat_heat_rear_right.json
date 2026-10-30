@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Rear right seat heat level",
+    "sv": "Bak höger sätesvärme"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "min": 0,
+  "max": 3
+}

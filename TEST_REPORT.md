@@ -1,15 +1,13 @@
-# Zeekr 0.1.2 validation
+# Zeekr 0.2.1 validation
 
-Changes: add energy.electricCar=true to the car driver, original project contributors in the app manifest, concise English/Swedish store readmes a changelog and correctly sized square driver images. No login, telemetry, car command or stored account changes.
+Scope: expanded community release, bilingual app and documentation, main-branch GitHub distribution. Not vehicle certification.
 
-Homey CLI 4.6.2 publish validation: passed. Existing 28 Node tests: passed. This is technical upload preparation, not certification approval. Remaining review work is listed in PUBLICERA_SV.md, including English UI/runtime messages and product-specific artwork review. No live API calls or car commands performed.
-
-## GitHub setup package
-
-- Complete English/Swedish setup, extraction and sharing instructions.
-- Offline adapter exercised end to end against the exact EU 2.9.9 XAPK. All six resulting values match the previously analysed reference. No values printed or included in distribution.
-- A deliberately incorrect APK pair is refused without producing a JSON.
-- Output overwrites are refused. Common private/generated files are excluded by the repository gitignore.
-- Original license texts and Homey app JavaScript are byte-identical to 0.1.2.
-- Existing 28 app tests pass. No live Zeekr requests or car commands performed.
-- Windows CMD launchers have been reviewed as source, but not executed on a Windows host here. End-to-end extraction was tested with Python on Linux.
+- 48 Node tests pass: the 42 expanded-control tests plus six tests for English/Swedish custom views, placeholders, dynamic status, private key-file errors, catalog/interpolation consistency, runtime validation and translated network/API errors.
+- Homey CLI 4.6.2: `app validate --level publish` passes.
+- Existing protocol signing, encrypted VIN, no automatic control-POST retries, command cooldown, reported-state semantics, device migration, schedule preservation and account persistence checks remain in place.
+- English is the fallback language; Homey’s translation mechanism selects Swedish when applicable. No account, protocol header, key, API-version default or polling default was changed as part of localization.
+- Existing key extraction tools remain unchanged. Their exact-build restriction is preserved. English key instructions now include the same explicit APK hashes as Swedish instructions.
+- All current Swedish user guides have English counterparts. README/setup/feature/key/start/distribution guides link to GitHub Releases and the latest release.
+- Original API/tool attribution and full MIT notices are preserved. No extracted keys, APKs, sessions, passwords, personal logs, real VINs or precise locations are included.
+- No live Zeekr requests or vehicle commands were performed. New controls remain unverified against a real EU 001 or other vehicle by this port.
+- No physical Homey UI/install test or Windows-host launcher execution was performed here. Mocked custom-view tests and CLI validation do not establish real-device operation or Homey App Store approval.

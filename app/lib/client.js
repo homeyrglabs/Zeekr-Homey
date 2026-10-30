@@ -1,4 +1,5 @@
 'use strict';
+const { english } = require('./language');
 // JavaScript adaptation of Fryyyyy/zeekr_ev_api's EU login and vehicle endpoints.
 const { randomUUID } = require('node:crypto');
 const { hmacHeaders, appSignature, encryptPassword, encryptVIN } = require('./crypto');
@@ -9,15 +10,15 @@ const CLIENT_ID = '1JwLroFkFFIpgFGdTRrm4_nzkkwDkfHj7RxJQb7J8tc';
 class ZeekrError extends Error {
   constructor(message, code = '') { super(message); this.name = 'ZeekrError'; this.code = String(code); }
 }
-function apiError(json) {
+function apiError(json, t = english) {
   const code = String(json?.code ?? json?.errorCode ?? 'unknown').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 30);
-  const hints = { '079021': 'Kontot används i en annan session. Använd ett separat delat Zeekr-konto.',
-    '079025': 'Signering eller VIN-kryptering avvisades. Kontrollera EU-nycklarna för din APK-version.' };
-  return new ZeekrError(hints[code] || `Zeekr avvisade anropet (kod ${code}). Kontrollera konto, region och nycklar.`, code);
+  const hints = { '079021': t('runtime.account_conflict'),
+    '079025': t('runtime.signing') };
+  return new ZeekrError(hints[code] || t('runtime.api_error', { code }), code);
 }
 class ZeekrClient {
   constructor(config, options = {}) {
-    this.config = config; this.fetch = options.fetch || global.fetch;
+    this.t = options.translate || english; this.config = config; this.fetch = options.fetch || global.fetch;
     this.deviceId = options.deviceId || randomUUID(); this.token = ''; this.authToken = '';
     this.loginPromise = null; this.refreshAfter = 0; this.blockedUntil = 0; this.blockedMessage = '';
     this.onSession = options.onSession || (() => {});
@@ -30,19 +31,19 @@ class ZeekrClient {
     if (Date.now() < this.blockedUntil) throw new ZeekrError(this.blockedMessage, 'backoff');
     let response;
     try { response = await this.fetch(url, { method, headers, body, redirect: 'error', signal: AbortSignal.timeout(30000) }); }
-    catch { throw new ZeekrError('Zeekr kunde inte nås. Kontrollera internetanslutningen och försök senare.', 'network'); }
+    catch { throw new ZeekrError(this.t('runtime.network'), 'network'); }
     if (response.status === 429) {
       const seconds = Number(response.headers.get('retry-after'));
       const retryAt = Date.parse(response.headers.get('retry-after') || '');
       const wait = Number.isFinite(seconds) && seconds > 0 ? seconds * 1000 : Number.isFinite(retryAt) ? retryAt - Date.now() : 300000;
       this.blockedUntil = Date.now() + Math.max(60000, Math.min(wait, 3600000));
-      this.blockedMessage = 'Zeekr begränsar anropen. Appen väntar innan nästa försök.';
+      this.blockedMessage = this.t('runtime.rate_limit');
       throw new ZeekrError(this.blockedMessage, '429');
     }
-    if (!response.ok) throw new ZeekrError(`Zeekr svarade med HTTP ${response.status}.`, String(response.status));
+    if (!response.ok) throw new ZeekrError(this.t('runtime.http_error', { code: response.status }), String(response.status));
     let json;
-    try { json = await response.json(); } catch { throw new ZeekrError('Zeekr returnerade ett ogiltigt svar.', 'invalid_json'); }
-    if (!json || typeof json !== 'object' || Array.isArray(json)) throw new ZeekrError('Zeekr returnerade ett oväntat svar.', 'invalid_json');
+    try { json = await response.json(); } catch { throw new ZeekrError(this.t('runtime.invalid_json'), 'invalid_json'); }
+    if (!json || typeof json !== 'object' || Array.isArray(json)) throw new ZeekrError(this.t('runtime.unexpected_response'), 'invalid_json');
     return json;
   }
   _customHeaders() {
@@ -59,7 +60,7 @@ class ZeekrClient {
     const headers = { ...this._customHeaders(), ...hmacHeaders(method, url, this.config.keys) };
     if (this.authToken) headers.authorization = this.authToken;
     const json = await this._http(method, url, headers, value === undefined ? undefined : JSON.stringify(value));
-    if (json.success !== true && strict) throw apiError(json);
+    if (json.success !== true && strict) throw apiError(json, this.t);
     return json.data;
   }
   async _signed(method, path, value, vin, retry = true, authenticating = false) {
@@ -79,13 +80,13 @@ class ZeekrClient {
       await this.login(usedToken);
       return this._signed(method, path, value, vin, false);
     }
-    if (json.success !== true) throw apiError(json);
+    if (json.success !== true) throw apiError(json, this.t);
     return json.data;
   }
   async login(expiredToken) {
     if (this.loginPromise) return this.loginPromise;
     if (this.token && (!expiredToken || this.token !== expiredToken)) return;
-    if (Date.now() < this.refreshAfter) throw new ZeekrError('Inloggning misslyckades nyligen. Vänta fem minuter eller spara rättade inställningar.', 'auth_backoff');
+    if (Date.now() < this.refreshAfter) throw new ZeekrError(this.t('runtime.auth_backoff'), 'auth_backoff');
     this.loginPromise = this._login().catch(error => {
       this.token = ''; this.authToken = ''; this.refreshAfter = Date.now() + 300000;
       return Promise.resolve(this.onSession(null)).catch(() => {}).then(() => { throw error; });
@@ -98,30 +99,36 @@ class ZeekrClient {
     await this._custom('POST', EU_USER + 'auth/checkUserV2', { email: this.config.email, checkType: '1' });
     const info = await this._custom('POST', EU_USER + 'auth/loginByEmailEncrypt', {
       code: '', codeId: '', email: this.config.email, password: encryptPassword(this.config.password, this.config.keys.password_public_key) });
-    if (info?.tokenName !== 'Authorization' || !info?.tokenValue) throw new ZeekrError('Zeekr returnerade ingen giltig inloggningstoken.');
+    if (info?.tokenName !== 'Authorization' || !info?.tokenValue) throw new ZeekrError(this.t('runtime.no_login_token'));
     this.authToken = info.tokenValue;
     // Like upstream, nonessential profile/protocol/inbox results do not gate login.
     await this._custom('POST', EU_USER + 'user/info', undefined, false);
     await this._custom('POST', EU_APP + 'protocol/service/getProtocol', { country: this.config.country }, false);
     await this._custom('GET', EU_APP + 'member/inbox/home', undefined, false);
     const tsp = await this._custom('GET', EU_USER + `user/tspCode?tspClientId=${CLIENT_ID}`);
-    if (!tsp?.code) throw new ZeekrError('Zeekr returnerade ingen TSP-kod.');
+    if (!tsp?.code) throw new ZeekrError(this.t('runtime.no_tsp_code'));
     await this._custom('GET', EU_USER + 'user/updateLanguage?language=en', undefined, false);
     const data = await this._signed('POST', 'ms-user-auth/v1.0/auth/login', {
       identifier: tsp.code, identityType: 10, loginDeviceId: 'google-sdk_gphone64_x86_64-36-16', loginDeviceJgId: '',
       loginDeviceType: 1, loginPhoneBrand: 'google', loginPhoneModel: 'sdk_gphone64_x86_64', loginSystem: 'Android'
     }, undefined, false, true);
-    if (!data?.accessToken) throw new ZeekrError('Zeekr returnerade ingen giltig fordons-token.');
+    if (!data?.accessToken) throw new ZeekrError(this.t('runtime.no_vehicle_token'));
     this.token = data.accessToken; this.refreshAfter = 0;
     await this.onSession(this.exportSession());
   }
   async vehicles() {
     const data = await this._signed('GET', 'ms-app-bff/api/v4.0/veh/vehicle-list?needSharedCar=true');
-    if (!Array.isArray(data)) throw new ZeekrError('Zeekr returnerade ingen fordonslista.');
+    if (!Array.isArray(data)) throw new ZeekrError(this.t('runtime.no_vehicle_list'));
     return data.filter(v => typeof v?.vin === 'string' && /^[A-HJ-NPR-Z0-9]{17}$/i.test(v.vin));
   }
   status(vin) { return this._signed('GET', 'ms-vehicle-status/api/v1.0/vehicle/status/latest?latest=false&target=new', undefined, vin); }
   charging(vin) { return this._signed('GET', 'ms-vehicle-status/api/v1.0/vehicle/status/qrvs', undefined, vin); }
+  remoteState(vin) { return this._signed('GET', 'ms-app-bff/api/v1.0/remoteControl/getVehicleState', undefined, vin); }
+  chargeLimit(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getLatestSoc', undefined, vin); }
+  chargePlan(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getChargingPlan', undefined, vin); }
+  travelPlan(vin) { return this._signed('GET', 'ms-charge-manage/api/v1.0/charge/getLatestTravelPlan', undefined, vin); }
+  setChargePlan(vin, body) { return this._signed('POST', 'ms-charge-manage/api/v1.0/charge/setChargingPlan', body, vin, false); }
+  setTravelPlan(vin, body) { return this._signed('POST', 'ms-charge-manage/api/v1.0/charge/setTravelPlan', body, vin, false); }
   remote(vin, payload) {
     const path = payload.serviceId === 'RCS' ? 'ms-charge-manage/api/v1.0/charge/control' : 'ms-remote-control/v1.0/remoteControl/control';
     // Never repeat POST after network timeout or HTTP failure: acceptance is unknown.

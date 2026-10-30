@@ -1,0 +1,12 @@
+{
+  "button.lock": "lock",
+  "button.unlock": "unlock",
+  "button.release_trunk": "release_trunk",
+  "button.release_hood": "release_hood",
+  "button.close_windows": "close_windows",
+  "button.ventilate_windows": "ventilate_windows",
+  "button.open_charge_lid": "open_charge_lid",
+  "button.close_charge_lid": "close_charge_lid",
+  "button.flash_lights": "flash_lights",
+  "button.honk_flash": "honk_flash"
+}

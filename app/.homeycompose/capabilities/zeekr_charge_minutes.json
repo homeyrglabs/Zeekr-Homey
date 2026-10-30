@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Charging minutes remaining",
+    "sv": "Laddningstid kvar"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "min",
+    "sv": "min"
+  },
+  "min": 0,
+  "max": 2046
+}

@@ -1,23 +1,17 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font-family:system-ui,sans-serif;max-width:620px;margin:auto;padding:18px;color:var(--homey-color-text,#202938)}p{line-height:1.5}input,textarea{box-sizing:border-box;width:100%;margin:6px 0 16px;padding:10px;border:1px solid #9aa6b7;border-radius:7px;font:inherit}fieldset{margin:18px 0;padding:16px;border:1px solid #adb6c4;border-radius:10px}label{display:block;font-weight:600}button{margin:8px 0;padding:12px;width:100%;font:inherit;border-radius:9px;cursor:pointer}.note{font-size:12px;color:#657184}#status{font-weight:600;white-space:pre-wrap}#secrets{font-family:monospace;-webkit-text-security:disc}button:disabled{opacity:.5;cursor:wait}[hidden]{display:none!important}</style></head><body><header class="homey-header"><h1 class="homey-title">Zeekr</h1><p class="homey-subtitle">Inofficiell integration för Homey Pro</p></header>
-<p>Använd ett separat Zeekr-konto som du delar bilen med, för att undvika sessionskonflikter med mobilappen.</p>
-<form id="form"><fieldset class="homey-form-fieldset"><legend class="homey-form-legend">Zeekr-konto (EU)</legend>
-<label class="homey-form-label" for="email">E-postadress</label><input class="homey-form-input" id="email" type="email" autocomplete="username" required>
-<label class="homey-form-label" for="password">Lösenord</label><input class="homey-form-input" id="password" type="password" autocomplete="current-password" placeholder="Lämna tomt för att behålla sparat lösenord">
-<label class="homey-form-label" for="country">Landkod</label><input class="homey-form-input" id="country" value="SE" maxlength="2" required>
-<label class="homey-form-label" for="appVersion">Zeekr-appversion</label><input class="homey-form-input" id="appVersion" value="3.1.1" required>
-<label class="homey-form-label" for="interval">Hämta status var (sekunder)</label><input class="homey-form-input" id="interval" type="number" min="60" max="3600" value="300" required>
-</fieldset><fieldset class="homey-form-fieldset"><legend class="homey-form-legend">API-nycklar</legend>
-<p id="keystate">Importera zeekr_secrets.json från nyckelverktyget.</p>
-<label class="homey-form-label" for="file">Välj JSON-fil</label><input id="file" type="file" accept=".json,application/json">
-<label class="homey-form-label" for="secrets">Eller klistra in JSON</label><textarea class="homey-form-input" id="secrets" rows="5" autocomplete="off" spellcheck="false" placeholder="Klistra in nyckelfilens innehåll"></textarea>
-<p>3.1.1 är ännu inte verifierad. Alla sex värden krävs; nyare EU-appar kan behöva extraktion medan Android-appen körs. Se guiden i ZIP-filen.</p>
-</fieldset><button class="homey-button-primary-full" type="submit" id="save">Spara och anslut</button></form>
-<button class="homey-button-secondary-full" id="existing" hidden>Använd sparat konto och hämta bilar</button>
-<button class="homey-button-secondary-full" id="disconnect" hidden>Koppla från och radera sparat konto</button>
-<p id="status" role="status" aria-live="polite"></p>
-<details class="note"><summary>Om integrationen</summary><p>Homey-port baserad på <a href="https://github.com/Fryyyyy/zeekr_ev_api" target="_blank" rel="noopener noreferrer">Fryyyyy / Zeekr EV API</a> och Fryyyyys Home Assistant-integration. Nyckelverktyg av <a href="https://github.com/Wysie/zeekr_key_extractor" target="_blank" rel="noopener noreferrer">Wysie</a>. MIT-licenser och källhänvisningar medföljer. Ingen officiell koppling till Zeekr eller Athom. Delas i befintligt skick, utan löfte om löpande underhåll eller support.</p></details><p class="note">Community-beta 0.1.2. Bilens funktioner behöver testas mot din modell. Nycklar och lösenord sparas i appens inställningar på din Homey. Ett accepterat kommando bekräftar inte att bilen har utfört det.</p><script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font-family:system-ui,sans-serif;max-width:620px;margin:auto;padding:18px;color:var(--homey-color-text,#202938)}p{line-height:1.5}input,textarea{box-sizing:border-box;width:100%;margin:6px 0 16px;padding:10px;border:1px solid #9aa6b7;border-radius:7px;font:inherit}fieldset{margin:18px 0;padding:16px;border:1px solid #adb6c4;border-radius:10px}label{display:block;font-weight:600}button{margin:8px 0;padding:12px;width:100%;font:inherit;border-radius:9px;cursor:pointer}.note{font-size:12px;color:#657184}#status{font-weight:600;white-space:pre-wrap}#secrets{font-family:monospace;-webkit-text-security:disc}button:disabled{opacity:.5;cursor:wait}[hidden]{display:none!important}</style></head><body><header class="homey-header"><h1 class="homey-title">Zeekr</h1><p data-i18n="ui.subtitle" class="homey-subtitle">Unofficial integration for Homey Pro</p></header>
+<p data-i18n="ui.shared_account">Use a separate Zeekr account with shared vehicle access to reduce session conflicts with the phone app.</p>
+<form id="form"><fieldset class="homey-form-fieldset"><legend data-i18n="ui.account" class="homey-form-legend">Zeekr account (EU)</legend><label data-i18n="ui.email" class="homey-form-label" for="email">Email address</label><input class="homey-form-input" id="email" type="email" autocomplete="username" required><label data-i18n="ui.password" class="homey-form-label" for="password">Password</label><input class="homey-form-input" id="password" type="password" autocomplete="current-password" data-i18n-placeholder="ui.keep_password" placeholder="Leave blank to keep the saved password"><label data-i18n="ui.country" class="homey-form-label" for="country">Country code</label><input class="homey-form-input" id="country" value="SE" maxlength="2" required><label data-i18n="ui.app_version" class="homey-form-label" for="appVersion">Zeekr app version</label><input class="homey-form-input" id="appVersion" value="3.1.1" required><label data-i18n="ui.interval" class="homey-form-label" for="interval">Fetch status every (seconds)</label><input class="homey-form-input" id="interval" type="number" min="60" max="3600" value="300" required></fieldset><fieldset class="homey-form-fieldset"><legend data-i18n="ui.keys" class="homey-form-legend">API keys</legend><p data-i18n="ui.import_keys" id="keystate">Import your complete key JSON from the extraction tool.</p><label data-i18n="ui.file" class="homey-form-label" for="file">Choose JSON file</label><input id="file" type="file" accept=".json,application/json"><label data-i18n="ui.paste" class="homey-form-label" for="secrets">Or paste JSON</label><textarea class="homey-form-input" id="secrets" rows="5" autocomplete="off" spellcheck="false" data-i18n-placeholder="ui.paste_hint" placeholder="Paste the contents of your key file"></textarea><p data-i18n="ui.key_note">All six values are required. The included guide supports only the exact analysed EU 2.9.9 APK build; use app version 2.9.9 with those keys. Other builds, including 3.1.1, are not a complete supported extraction route. Keep working settings when updating.</p></fieldset><button data-i18n="ui.save" class="homey-button-primary-full" type="submit" id="save">Save and connect</button></form><button data-i18n="ui.existing" class="homey-button-secondary-full" id="existing" hidden>Use saved account and fetch vehicles</button><button data-i18n="ui.disconnect" class="homey-button-secondary-full" id="disconnect" hidden>Disconnect and delete saved account</button><p id="status" role="status" aria-live="polite"></p><p><a data-i18n="ui.releases" href="https://github.com/homeyrglabs/Zeekr-Homey/releases" target="_blank" rel="noopener noreferrer">Downloads and releases</a></p><details class="note"><summary data-i18n="ui.about">About this integration</summary><p><span data-i18n="ui.about_before">Homey port based on</span> <a href="https://github.com/Fryyyyy/zeekr_ev_api" target="_blank" rel="noopener noreferrer">Fryyyyy / Zeekr EV API</a> <span data-i18n="ui.about_middle">and Fryyyyy’s Home Assistant integration. Key tools by</span> <a href="https://github.com/Wysie/zeekr_key_extractor" target="_blank" rel="noopener noreferrer">Wysie</a>. <span data-i18n="ui.about_after">MIT licenses and source notices are included. Not affiliated with Zeekr or Athom. Shared as-is, without a commitment to maintenance or support.</span></p></details><p data-i18n="ui.release_note" class="note">Community release 0.2.1. Vehicle support needs testing with your model. Keys and passwords are stored in app settings on your Homey. An accepted command does not confirm that the car performed it.</p><script>
 function boot(Homey, pairing) {
  const el = id => document.getElementById(id);
+ const fallback = {"language": "en", "subtitle": "Unofficial integration for Homey Pro", "shared_account": "Use a separate Zeekr account with shared vehicle access to reduce session conflicts with the phone app.", "account": "Zeekr account (EU)", "email": "Email address", "password": "Password", "keep_password": "Leave blank to keep the saved password", "country": "Country code", "app_version": "Zeekr app version", "interval": "Fetch status every (seconds)", "keys": "API keys", "import_keys": "Import your complete key JSON from the extraction tool.", "file": "Choose JSON file", "paste": "Or paste JSON", "paste_hint": "Paste the contents of your key file", "key_note": "All six values are required. The included guide supports only the exact analysed EU 2.9.9 APK build; use app version 2.9.9 with those keys. Other builds, including 3.1.1, are not a complete supported extraction route. Keep working settings when updating.", "save": "Save and connect", "existing": "Use saved account and fetch vehicles", "disconnect": "Disconnect and delete saved account", "about": "About this integration", "about_before": "Homey port based on", "about_middle": "and Fryyyyy’s Home Assistant integration. Key tools by", "about_after": "MIT licenses and source notices are included. Not affiliated with Zeekr or Athom. Shared as-is, without a commitment to maintenance or support.", "release_note": "Community release 0.2.1. Vehicle support needs testing with your model. Keys and passwords are stored in app settings on your Homey. An accepted command does not confirm that the car performed it.", "releases": "Downloads and releases", "saved_keys": "Six keys are saved. Only import a new file if you want to replace them.", "file_large": "The JSON file is too large.", "file_loaded": "Key file loaded. Press Save and connect.", "file_invalid": "Could not read the file as JSON.", "connecting": "Connecting to Zeekr… This can take a couple of minutes.", "connected": "Connected. Vehicles: __count__.", "disconnected": "The saved account and session have been deleted."};
+ const t = (key, tags = {}) => {
+  const result = typeof Homey.__ === 'function' ? Homey.__(key, tags) : null;
+  const value = typeof result === 'string' && result !== key ? result : fallback[key.slice(3)];
+  return value.replace(/__([a-zA-Z0-9_]+)__/g, (match, name) => Object.hasOwn(tags, name) ? String(tags[name]) : match);
+ };
+ document.documentElement.lang = t('ui.language');
+ for (const node of document.querySelectorAll('[data-i18n]')) node.textContent = t(node.getAttribute('data-i18n'));
+ for (const node of document.querySelectorAll('[data-i18n-placeholder]')) node.setAttribute('placeholder', t(node.getAttribute('data-i18n-placeholder')));
  const status = text => { el('status').textContent = text; };
  const invoke = (event, payload) => new Promise((resolve,reject) => {
   const callback = (error,result) => error ? reject(new Error(error.message || String(error))) : resolve(result);
@@ -28,7 +22,7 @@ function boot(Homey, pairing) {
  });
  const render = info => {
   for (const name of ['email','country','appVersion','interval']) el(name).value = info[name];
-  el('keystate').textContent = info.keysSaved ? 'Sex nycklar är sparade. Importera bara en ny fil om de ska ersättas.' : 'Importera zeekr_secrets.json från nyckelverktyget.';
+  el('keystate').textContent = info.keysSaved ? t('ui.saved_keys') : t('ui.import_keys');
   el('existing').hidden = !pairing || !info.configured;
   el('disconnect').hidden = pairing || !info.configured;
  };
@@ -36,20 +30,20 @@ function boot(Homey, pairing) {
  el('file').addEventListener('change', async () => {
   const file = el('file').files[0]; if (!file) return;
   try {
-   if (file.size > 65536) throw new Error('JSON-filen är för stor.');
-   const text = await file.text(); JSON.parse(text); el('secrets').value=text; status('Nyckelfil inläst. Tryck Spara och anslut.');
-  } catch { status('Kunde inte läsa filen som JSON.'); }
+   if (file.size > 65536) throw new Error(t('ui.file_large'));
+   const text = await file.text(); JSON.parse(text); el('secrets').value=text; status(t('ui.file_loaded'));
+  } catch { status(t('ui.file_invalid')); }
  });
  el('form').addEventListener('submit', async event => {
   event.preventDefault(); el('save').disabled=true; el('existing').disabled=true;
-  status('Ansluter till Zeekr… Det kan ta upp till ett par minuter.');
+  status(t('ui.connecting'));
   try {
    const input = {};
    for (const name of ['email','password','country','appVersion','secrets']) input[name]=el(name).value;
    input.interval=Number(el('interval').value);
    const result=await invoke('login',input);
    el('password').value='';el('secrets').value='';el('file').value='';
-   render(result);status('Ansluten. Antal bilar: '+result.vehicles+'.');
+   render(result);status(t('ui.connected', { count: result.vehicles }));
    if (pairing) Homey.showView('list_devices');
   } catch(error) { status(error.message); }
   finally {el('save').disabled=false;el('existing').disabled=false;}
@@ -57,7 +51,7 @@ function boot(Homey, pairing) {
  el('existing').addEventListener('click',()=>Homey.showView('list_devices'));
  el('disconnect').addEventListener('click',async()=>{
   el('disconnect').disabled=true;
-  try { await invoke('disconnect',{}); render({email:'',country:'SE',appVersion:'3.1.1',interval:300,keysSaved:false,configured:false});status('Sparat konto och session har raderats.'); }
+  try { await invoke('disconnect',{}); render({email:'',country:'SE',appVersion:'3.1.1',interval:300,keysSaved:false,configured:false});status(t('ui.disconnected')); }
   catch(error){status(error.message);} finally{el('disconnect').disabled=false;}
  });
  if (!pairing) Homey.ready();

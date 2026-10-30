@@ -1,0 +1,18 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Range at 100% SOC (API)",
+    "sv": "Räckvidd vid 100 % (API)"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icon.svg",
+  "decimals": 1,
+  "units": {
+    "en": "km",
+    "sv": "km"
+  },
+  "min": 0,
+  "max": 2000
+}

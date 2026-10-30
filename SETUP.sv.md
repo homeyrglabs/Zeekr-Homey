@@ -2,7 +2,7 @@
 
 ## 1. Hämta och packa upp
 
-Öppna **Releases** på GitHub-repot. Hämta `Zeekr_Homey_v0.1.2.zip` och packa upp hela filen, exempelvis till `C:\Zeekr`. Du ska se README, `EXTRACT_KEYS_WINDOWS.cmd`, `INSTALL_WINDOWS.cmd` och mappen `app`. **Code → Download ZIP** fungerar också.
+Öppna [senaste versionen](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) eller [alla versioner](https://github.com/homeyrglabs/Zeekr-Homey/releases). Hämta `Zeekr_Homey_v0.2.1.zip` och packa upp hela filen, exempelvis till `C:\Zeekr`. Du ska se README, `EXTRACT_KEYS_WINDOWS.cmd`, `INSTALL_WINDOWS.cmd` och mappen `app`. **Code → Download ZIP** fungerar också.
 
 ## 2. Installera datorverktygen
 
@@ -54,3 +54,7 @@ Packa upp den nya versionen och kör installationen igen. Avinstallera inte appe
 ## Delning och support
 
 Dela repolänken eller release-ZIP-filen, aldrig din privata nyckelfil eller inloggning. MIT-licenser och källhänvisningar ska följa med. Projektet delas i befintligt skick utan löfte om löpande underhåll eller support.
+
+## Utökade funktioner och språk
+
+Läs [FEATURES.sv.md](FEATURES.sv.md) före test av nya kommandon. Svenska och engelska följer Homeys språk. Hämta kommande uppdateringar från [Releases](https://github.com/homeyrglabs/Zeekr-Homey/releases). En vanlig uppdatering kräver ingen ny nyckelextraktion.

@@ -42,7 +42,7 @@ test('restart reuses matching saved session and disconnect removes account and s
   const { a, stored } = app(); await a.onInit(); await a.saveConfig(input);
   a.client = null; const c = a.getClient(); assert.equal(c.options.session.token, 'test-token');
   await a.disconnect(); assert.equal(stored.has('account'), false); assert.equal(stored.has('session'), false);
-  assert.throws(() => a.getClient(), /appinställningarna/);
+  assert.throws(() => a.getClient(), /app settings/);
 });
 test('pairing excludes an already paired VIN and stores no credentials in device data', async () => {
   const driver = new Driver(), handlers = {};
@@ -51,4 +51,9 @@ test('pairing excludes an already paired VIN and stores no credentials in device
   await driver.onPair({ setHandler: (id, fn) => { handlers[id] = fn; } });
   const result = await handlers.list_devices(); assert.equal(result.length, 1);
   assert.deepEqual(Object.keys(result[0].data), ['vin']); assert.match(result[0].name, /001/);
+});
+test('every expanded Flow card is registered and dispatches its own ID and arguments',async()=>{
+  const {a,listeners}=app();await a.onInit();const ids=require('../lib/expanded-actions.json'),calls=[];
+  const device={performAction:async(id,args)=>{calls.push({id,args});return true;}};
+  for(const id of ids){const args={device,level:80};assert.equal(await listeners[id](args),true);assert.equal(calls.at(-1).id,id);assert.deepEqual(calls.at(-1).args,{level:80});}
 });

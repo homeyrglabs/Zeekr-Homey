@@ -27,7 +27,77 @@
     "zeekr_tyre_rl",
     "zeekr_tyre_rr",
     "zeekr_status",
-    "zeekr_last_sync"
+    "zeekr_last_sync",
+    "button.lock",
+    "button.unlock",
+    "button.release_trunk",
+    "button.release_hood",
+    "button.close_windows",
+    "button.ventilate_windows",
+    "button.open_charge_lid",
+    "button.close_charge_lid",
+    "button.flash_lights",
+    "button.honk_flash",
+    "zeekr_charge_limit",
+    "zeekr_charge_minutes",
+    "zeekr_charge_speed",
+    "zeekr_trip_distance",
+    "zeekr_trip_speed",
+    "zeekr_consumption",
+    "zeekr_range_20",
+    "zeekr_range_100",
+    "zeekr_latitude",
+    "zeekr_longitude",
+    "zeekr_defrost",
+    "zeekr_wheel_heat",
+    "zeekr_ac_vent",
+    "zeekr_sentry",
+    "zeekr_hood_open",
+    "zeekr_trunk_open",
+    "zeekr_trunk_locked",
+    "zeekr_charge_lid_open",
+    "zeekr_park_brake",
+    "zeekr_sunshade_position",
+    "zeekr_charge_plan",
+    "zeekr_departure_plan",
+    "zeekr_charge_plan_start",
+    "zeekr_charge_plan_end",
+    "zeekr_departure_time",
+    "zeekr_supplement_sync",
+    "zeekr_door_driver",
+    "zeekr_door_lock_driver",
+    "zeekr_window_driver",
+    "zeekr_seat_heat_driver",
+    "zeekr_seat_vent_driver",
+    "zeekr_door_passenger",
+    "zeekr_door_lock_passenger",
+    "zeekr_window_passenger",
+    "zeekr_seat_heat_passenger",
+    "zeekr_seat_vent_passenger",
+    "zeekr_door_rear_left",
+    "zeekr_door_lock_rear_left",
+    "zeekr_window_rear_left",
+    "zeekr_seat_heat_rear_left",
+    "zeekr_door_rear_right",
+    "zeekr_door_lock_rear_right",
+    "zeekr_window_rear_right",
+    "zeekr_seat_heat_rear_right",
+    "zeekr_tyre_temp_fl",
+    "zeekr_tyre_warn_fl",
+    "zeekr_tyre_hot_fl",
+    "zeekr_tyre_temp_fr",
+    "zeekr_tyre_warn_fr",
+    "zeekr_tyre_hot_fr",
+    "zeekr_tyre_temp_rl",
+    "zeekr_tyre_warn_rl",
+    "zeekr_tyre_hot_rl",
+    "zeekr_tyre_temp_rr",
+    "zeekr_tyre_warn_rr",
+    "zeekr_tyre_hot_rr",
+    "zeekr_window_open_driver",
+    "zeekr_window_open_passenger",
+    "zeekr_window_open_rear_left",
+    "zeekr_window_open_rear_right"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -40,6 +110,66 @@
       "title": {
         "en": "Cabin temperature",
         "sv": "Kupétemperatur"
+      }
+    },
+    "button.lock": {
+      "title": {
+        "en": "Request door locking",
+        "sv": "Begär låsning"
+      }
+    },
+    "button.unlock": {
+      "title": {
+        "en": "Request door unlocking",
+        "sv": "Begär upplåsning"
+      }
+    },
+    "button.release_trunk": {
+      "title": {
+        "en": "Request trunk release",
+        "sv": "Begär frigöring av baklucka"
+      }
+    },
+    "button.release_hood": {
+      "title": {
+        "en": "Request front hood release",
+        "sv": "Begär frigöring av främre huv"
+      }
+    },
+    "button.close_windows": {
+      "title": {
+        "en": "Request all windows closed",
+        "sv": "Begär stängning av alla fönster"
+      }
+    },
+    "button.ventilate_windows": {
+      "title": {
+        "en": "Request window ventilation",
+        "sv": "Begär vädringsläge för fönstren"
+      }
+    },
+    "button.open_charge_lid": {
+      "title": {
+        "en": "Request charge lid opening",
+        "sv": "Begär öppning av laddlucka"
+      }
+    },
+    "button.close_charge_lid": {
+      "title": {
+        "en": "Request charge lid closing",
+        "sv": "Begär stängning av laddlucka"
+      }
+    },
+    "button.flash_lights": {
+      "title": {
+        "en": "Request light flashing",
+        "sv": "Begär blinkning"
+      }
+    },
+    "button.honk_flash": {
+      "title": {
+        "en": "Request horn and light flashing",
+        "sv": "Begär tuta och blinkning"
       }
     }
   },

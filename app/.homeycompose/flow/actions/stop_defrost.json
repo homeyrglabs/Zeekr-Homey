@@ -1,0 +1,17 @@
+{
+  "title": {
+    "en": "Request defrost stop",
+    "sv": "Begär stopp av avfrostning"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    }
+  ],
+  "hint": {
+    "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+    "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+  }
+}

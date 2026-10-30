@@ -1,73 +1,54 @@
 # Zeekr 🚘
 ### European Zeekr vehicles in Homey Pro
 
-**Unofficial community port — original Zeekr API work by Fryyyyy, key tools by Wysie.**
+**[Download the latest release](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) · [All releases and downloads](https://github.com/homeyrglabs/Zeekr-Homey/releases)**
 
-Follow your car’s battery, range and charging status in Homey, and use supported charging/climate requests in Flows. Shared by [homeyrglabs](https://github.com/homeyrglabs); the original API research and implementation remain credited to their authors.
+**Current community release: v0.2.1.** Download `Zeekr_Homey_v0.2.1.zip` under **Assets**, extract the complete package and follow [the setup guide](SETUP.md).
 
-**Shared as-is. No ongoing maintenance, updates, response times or support are promised. Independent forks are welcome.**
+[🇸🇪 Svenska](README.sv.md) · [Setup](SETUP.md) · [Extract API keys](KEYS.md) · [All features and limitations](FEATURES.md)
 
-[🇸🇪 Svenska](README.sv.md) · [Complete setup](SETUP.md) · [Extract API keys](KEYS.md)
+Unofficial Homey port of **Fryyyyy’s Zeekr EV API and Home Assistant integration**, with key tools by **Wysie**. Distributed through **homeyrglabs/Zeekr-Homey**. Original authors retain credit for the API research and implementation; original MIT notices are preserved. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
----
+**Shared as-is. No ongoing maintenance, updates, support or response times are promised. Independent forks are welcome. Not affiliated with Zeekr or Athom.**
 
-## ✨ Features
+## Features
 
-- Battery level, range, charging and cable state supplied by Zeekr EU
-- Charging power, current/voltage and other telemetry when provided by the API
-- Cabin temperature, climate and lock state, odometer and tyre pressures
-- Homey Flow cards for charging and cabin climate requests
-- Runs directly on Homey Pro; Home Assistant is not required
-- Free source distribution with the original MIT notices preserved
+- Battery, range, charging, cable state, charging power, cabin temperature, odometer and tyre pressures.
+- Explicit cloud requests for door locking/unlocking, trunk/front hood release, windows, sunshade, charge lid and locator lights/horn.
+- Charging and cabin climate, defrost, steering wheel and seat heating, front seat ventilation, short ventilation cycle and sentry requests.
+- Charging limit, charging schedule and one-time departure schedule requests.
+- Additional reported door/window/lock states, seat settings, tyre temperatures/warnings, coordinates, charging and trip readings, and schedule status.
+- English and Swedish pairing, settings, capabilities, Flow cards and runtime messages. English fallback for other Homey languages.
+- Runs directly on Homey Pro; Home Assistant is not required.
 
-An accepted API request does not prove that the car performed the action. Verify commands against vehicle status.
+See [FEATURES.md](FEATURES.md) for the complete control table, replacement behavior of schedules and limitations. The expansion adds **28 Flow actions and ten device buttons** to the original controls.
 
----
+**New vehicle commands are tested with simulated responses, not against a real car.** Availability depends on model, region, firmware, account permissions and vehicle state. An accepted request does not prove that the car performed it. Lock status changes only after reported telemetry confirms it. No Bluetooth/digital driving key, proximity unlocking or camera access is included.
 
-## 📱 Compatibility and status
+## Requirements and status
 
-| Item | Status |
-| --- | --- |
-| Homey Pro | Software 12.9.0 or newer required |
-| Zeekr EU account | Required, with access to the vehicle |
-| Zeekr 001 | One user reported installation/pairing with the original 0.1.0 beta |
-| Other Zeekr models | Not verified by this port |
-| Charging / climate commands | Need actual vehicle testing; not verified for all models |
-| Included key extraction route | Exact analysed EU Android 2.9.9 build only |
-| EU Android 3.1.1 key extraction | Not a complete supported setup route |
-| Homey Cloud / Bridge without Homey Pro | Not supported |
+| Item | Requirement / status |
+|---|---|
+| Homey | Homey Pro, software 12.9.0+; Homey Cloud/Bridge alone is not supported |
+| Installation computer | Node.js 24+ for Homey CLI 4.6.2 |
+| Key extraction | Python 3.10+; exact analysed EU Android 2.9.9 build only |
+| Zeekr account | Your own EU account with access to the vehicle; a separate shared account is preferred |
+| Zeekr 001 | Initial installation/pairing reported by one user; expanded commands still require vehicle testing |
+| Other models / EU 3.1.1 extraction | Not verified; 3.1.1 is not a complete supported extraction route |
+| Distribution | GitHub community release, **not a certified Homey App Store app** |
 
-Version **0.1.2** is a community beta for installation with Homey CLI. It is not a Homey App Store release. Settings, pairing and several runtime messages are currently Swedish. Existing 28 automated tests and technical publish validation pass; that does not establish compatibility with every vehicle or command.
+## Install or update on Windows
 
----
+1. Open **[the latest release](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest)** or **[all releases](https://github.com/homeyrglabs/Zeekr-Homey/releases)**, then download **Zeekr_Homey_v0.2.1.zip** under Assets.
+2. Extract the complete ZIP. Read [SETUP.md](SETUP.md).
+3. For a first installation, follow [KEYS.md](KEYS.md) and run `EXTRACT_KEYS_WINDOWS.cmd` to create your own private key JSON. No APKs or keys are included.
+4. Install [Node.js 24+](https://nodejs.org/), then read and run `INSTALL_WINDOWS.cmd`. Sign in with your own Homey account and select your Homey.
+5. For a first installation, add **Zeekr → Zeekr (EU)**, enter your own Zeekr account and EU country code, and import your key file. Use API app version **2.9.9** for keys from the included extraction guide.
+6. Compare readings with the phone app. Test one manual command at a time beside the vehicle, with your regular key available.
 
-## 🏠 Installation
+**Updating:** install on the same Homey without uninstalling first or using `--clean`. Keep your working account, keys and API app-version setting. The app ID remains `com.rglabs.zeekr`; new capabilities are added to an existing device when the app starts. Downloading a new GitHub release does not update Homey automatically.
 
-### Download
-
-Open this repository’s **Releases** and download **Zeekr_Homey_v0.1.2.zip**. Alternatively, use **Code → Download ZIP** for the source tree. Extract the complete ZIP.
-
-### Requirements
-
-- Homey Pro software **12.9.0+**
-- A computer with **Node.js 24+** for the included Homey CLI
-- **Python 3.10+** for the documented offline key extraction
-- Your own Zeekr EU account and a complete valid EU API key JSON
-
-### Getting started
-
-1. Follow [the complete setup](SETUP.md).
-2. Follow [the key extraction guide](KEYS.md), then run **EXTRACT_KEYS_WINDOWS.cmd** with the documented EU 2.9.9 XAPK. It writes your private JSON outside the repository and never prints key values.
-3. Run **INSTALL_WINDOWS.cmd** to install the app using your own Homey login.
-4. Add **Zeekr → Zeekr (EU)** in Homey.
-5. Enter your Zeekr account, EU country code, **app version 2.9.9** for that key file, and an initial interval of **300 seconds**.
-6. Import your own key JSON, save and select the vehicle. Compare reported values against the phone app.
-
-No APKs, API key values or account credentials are included. Your phone can keep its current app version.
-
-### Manual installation
-
-From the extracted repository root on Windows:
+Manual PowerShell installation from the extracted root:
 
 ```powershell
 npm.cmd install --global homey@4.6.2
@@ -76,64 +57,18 @@ cd app
 homey.cmd app install
 ```
 
-On macOS/Linux use `npm` and `homey` without `.cmd`; see [SETUP.md](SETUP.md) and [KEYS.md](KEYS.md).
+macOS/Linux: use `npm` and `homey` without `.cmd`. **Code → Download ZIP** downloads the current main source tree; tagged release ZIPs provide a specific version.
 
-For updates, leave the existing app installed, do not use `--clean`, and keep a working account configuration. The app ID remains `com.rglabs.zeekr`.
+## Polling and privacy
 
----
+Default polling is **300 seconds**, configurable between 60 and 3600 seconds. Requests take additional time. A follow-up refresh is scheduled 35 seconds after an accepted command. A displayed value age in Homey can indicate its last change; a successful cloud fetch does not prove that a sleeping vehicle supplied fresh telemetry.
 
-## 🔑 Key extraction
+Credentials, extracted API values and the reusable session are stored in your Homey app settings. Vehicle coordinates may be displayed when returned. Keep private key files outside the repository. Never publish keys, passwords, sessions, VINs, precise coordinates, personal logs or APKs.
 
-The included wrapper checks the exact EU 2.9.9 APK hashes before invoking Wysie’s bundled, unmodified MIT extractor. It uses the production signing candidate identified from that build’s bytecode. Other builds are refused; the check must not be bypassed.
+## Original projects and license
 
-[**English: extract your key file**](KEYS.md) · [**Svenska: ta fram nyckelfilen**](KEYS.sv.md)
+- [Fryyyyy / zeekr_ev_api](https://github.com/Fryyyyy/zeekr_ev_api): protocol, authentication, signing and VIN encryption.
+- [Fryyyyy / zeekr_homeassistant](https://github.com/Fryyyyy/zeekr_homeassistant): telemetry, controls and schedule mappings.
+- [Wysie / zeekr_key_extractor](https://github.com/Wysie/zeekr_key_extractor): APK analysis and runtime extraction tools.
 
-The analysis runs locally and does not require a phone cable, BlueStacks, root or a phone downgrade for this route. Successful extraction does not guarantee continued server acceptance. Authentication is tested later by your Homey.
-
----
-
-## ⚡ Homey Flows
-
-Use the supplied cards to refresh status, check charging/cable/lock/battery conditions and request charging or cabin climate start/stop. Triggers report changes after valid API readings.
-
-Capabilities depend on what Zeekr supplies for your vehicle. Test one manual command at a time and confirm its effect. No digital driving key or Bluetooth functionality is included.
-
----
-
-## 🧰 Maintenance and independent forks
-
-This project is provided for download and independent reuse. There is no promise to respond to support requests, review pull requests or repair API changes. Zeekr API changes can stop the integration from working.
-
-If you wish to continue development, fork the repository, preserve the license notices and document your own changes and vehicle tests. Please do not send Homey-port support requests to the original API/tool authors. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-## 🧑‍💻 Original projects
-
-- [**Fryyyyy / zeekr_ev_api**](https://github.com/Fryyyyy/zeekr_ev_api): EU API protocol, authentication, request signing and VIN encryption.
-- [**Fryyyyy / zeekr_homeassistant**](https://github.com/Fryyyyy/zeekr_homeassistant): telemetry and charging/climate command mappings.
-- [**Wysie / zeekr_key_extractor**](https://github.com/Wysie/zeekr_key_extractor): desktop APK analysis and runtime extraction tools.
-
-**homeyrglabs** distributes this Homey adaptation. This is not a claim to original authorship of the Zeekr API. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [UPSTREAM_VERSIONS.json](UPSTREAM_VERSIONS.json) for exact provenance.
-
----
-
-## 🔒 Privacy
-
-The app uses your Zeekr EU account to communicate directly with Zeekr’s cloud. Credentials, extracted API values and a reusable session are stored in Homey app settings. No RG Labs account or separate Home Assistant server is required.
-
-Keep your key JSON outside the repository. Never publish passwords, sessions, personal logs or APK files. The root `.gitignore` excludes common private/generated files; inspect what you publish as well.
-
----
-
-## ⚠️ Disclaimer
-
-This is an independent community integration, not affiliated with or endorsed by Zeekr or Athom. Availability, compatibility and successful vehicle commands cannot be guaranteed. It is shared as-is under the included license terms.
-
----
-
-## 📄 Source code and license
-
-This repository includes the Homey source code and tools for independent reuse. Original MIT license texts and copyright notices are preserved in [LICENSE](LICENSE), `app/LICENSE`, `app/licenses/` and the included upstream sources.
-
-See the [complete setup](SETUP.md), [Swedish setup](SETUP.sv.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+See [LICENSE](LICENSE), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), [UPSTREAM_VERSIONS.json](UPSTREAM_VERSIONS.json), [validation report](TEST_REPORT.md) and [independent continuation](CONTRIBUTING.md). Zeekr API changes can stop this integration from working. Sharing it does not create a maintenance or support commitment.

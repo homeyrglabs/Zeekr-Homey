@@ -37,7 +37,7 @@
     "sv": "API:t tar emot begäran. Bilstatus bekräftar resultatet. Modellstödet behöver testas."
   },
   "titleFormatted": {
-    "en": "Start cabin climate at [[temperature]] °C for [[minutes]] minutes",
-    "sv": "Starta kupéklimat på [[temperature]] °C i [[minutes]] minuter"
+    "en": "Start cabin climate [[temperature]], [[minutes]]",
+    "sv": "Starta kupéklimat [[temperature]], [[minutes]]"
   }
 }

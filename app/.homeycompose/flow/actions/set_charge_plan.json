@@ -1,0 +1,53 @@
+{
+  "title": {
+    "en": "Replace and enable charging schedule",
+    "sv": "Ersätt och aktivera laddschema"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zeekr"
+    },
+    {
+      "name": "start",
+      "type": "text",
+      "title": {
+        "en": "Start HH:MM (vehicle time)",
+        "sv": "Start HH:MM (bilens tid)"
+      }
+    },
+    {
+      "name": "end",
+      "type": "text",
+      "title": {
+        "en": "End HH:MM (vehicle time)",
+        "sv": "Slut HH:MM (bilens tid)"
+      }
+    },
+    {
+      "name": "cycle",
+      "type": "checkbox",
+      "title": {
+        "en": "Battery cycle conditioning",
+        "sv": "Battericykelkonditionering"
+      }
+    },
+    {
+      "name": "conditioning",
+      "type": "checkbox",
+      "title": {
+        "en": "Battery temperature conditioning",
+        "sv": "Temperaturkonditionering av batteri"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Requests a cloud command from Zeekr. Model, region, account and vehicle state determine support. Only vehicle telemetry confirms the result.",
+    "sv": "Begär ett molnkommando från Zeekr. Stöd beror på modell, region, konto och bilstatus. Endast bilens telemetri bekräftar resultatet."
+  },
+  "titleFormatted": {
+    "en": "Replace and enable charging schedule [[start]], [[end]], [[cycle]], [[conditioning]]",
+    "sv": "Ersätt och aktivera laddschema [[start]], [[end]], [[cycle]], [[conditioning]]"
+  }
+}

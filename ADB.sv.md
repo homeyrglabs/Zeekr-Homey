@@ -1,5 +1,7 @@
 # Hämta egna APK-filer via Android och ADB (alternativ)
 
+[English](ADB.md) · [Alla versioner](https://github.com/homeyrglabs/Zeekr-Homey/releases)
+
 Det här kopierar installerade appfiler. Det extraherar inte alla nycklar ur nyare skyddade builds. För den kompletta, versionsavgränsade setupen används [KEYS.sv.md](KEYS.sv.md).
 
 1. Hämta Android SDK Platform-Tools för Windows från https://developer.android.com/tools/releases/platform-tools och packa upp till `C:\Zeekr\platform-tools`.

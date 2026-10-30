@@ -1,21 +1,27 @@
-# 0.2.0-beta.1 — expanded cloud controls
+# v0.2.1 — expanded community release / utökad community-version
 
-Adds explicit cloud lock/unlock buttons and Flow cards, trunk/hood release, windows/sunshade/charge lid, locator, defrost/wheel/seats/ventilation/sentry, charging limits and schedules, departure scheduling, and additional telemetry. See [Swedish feature list and upgrade guide](FEATURES.sv.md).
+**[Latest release](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) · [All releases](https://github.com/homeyrglabs/Zeekr-Homey/releases)**
 
-New commands are offline/mocked-tested only. They have not been tested against a real vehicle. No Bluetooth driving key is included. 42 tests and Homey technical publish validation pass. Shared as-is, without maintenance or support commitments.
+## English
 
-Install the full release ZIP on the same Homey with INSTALL_WINDOWS.cmd. Do not uninstall first or use --clean. Existing app ID, account settings and device remain. Newly added capabilities are migrated at startup.
+The expanded controls from v0.2.0-beta.1 are now included in the main community release. Adds English and Swedish pairing, settings, runtime messages and complete setup/feature/distribution guides. Both READMEs and the guides link directly to the latest release and all releases.
 
-Original API work: Fryyyyy. Key extractor: Wysie. Original MIT notices are preserved.
+Includes cloud lock/unlock, windows/sunshade/charge lid, trunk/front hood release, lights/horn, defrost/wheel/seat/ventilation/sentry, charging limit and charging/departure schedules, and more reported telemetry. See [FEATURES.md](FEATURES.md).
 
----
+Download **Zeekr_Homey_v0.2.1.zip**, extract the complete package and run **INSTALL_WINDOWS.cmd** on the same Homey. Do not uninstall first or use `--clean`. Preserve working account/key/app-version settings. New capabilities migrate on startup. Homey updates are installed manually.
 
-Zeekr 0.1.2 — community beta
+48 automated Node tests and Homey CLI 4.6.2 technical publish validation pass. New commands have not been tested against a real vehicle by this port. Model/region/account support varies. An accepted request does not establish a performed action. No Bluetooth/digital driving key is included. No live Zeekr requests or vehicle commands were used in this verification.
 
-Unofficial Homey Pro port of Fryyyyy’s Zeekr projects, with desktop key tools by Wysie. Original MIT license notices are preserved.
+API work: **Fryyyyy**. Key tools: **Wysie**. Original MIT notices are preserved. Shared as-is; no maintenance or support commitment. This is a GitHub release, not Homey App Store certification.
 
-Download **Zeekr_Homey_v0.1.2.zip**, extract it, then read README.md / README.sv.md. On Windows, INSTALL_WINDOWS.cmd guides you through Homey CLI installation and your own Homey login. Requires Homey Pro 12.9.0+ and Node.js 24+. Your own Zeekr EU account and complete valid key JSON are required; no credentials or key values are included.
+## Svenska
 
-This is a community beta, shared as-is without a commitment to ongoing maintenance or support. Settings/pairing and several runtime messages are currently Swedish. Successful pairing has been reported by one user; vehicle commands and model compatibility need further testing. Independent forks are welcome.
+De utökade funktionerna från v0.2.0-beta.1 ingår nu i huvudversionen. Engelska och svenska finns i parkoppling, inställningar, driftmeddelanden och kompletta guider. Båda README-filerna och guiderna länkar direkt till senaste versionen och alla releaser.
 
-Includes complete English/Swedish setup and key extraction guides, a Windows extractor launcher and an offline exact-build EU 2.9.9 adapter. The adapter refuses different APK bytes and writes the six-field JSON outside the repository without printing values. It does not guarantee current server acceptance and does not support arbitrary app versions.
+Innehåller molnkommandon för lås/upplåsning, fönster/solgardin/laddlucka, frigöring av bagagelucka/frunk, ljus/tuta, defroster/ratt-/sätesvärme/ventilation/sentry, laddgräns, ladd-/avgångsscheman och fler avläsningar. Se [FEATURES.sv.md](FEATURES.sv.md).
+
+Hämta **Zeekr_Homey_v0.2.1.zip**, packa upp allt och kör **INSTALL_WINDOWS.cmd** på samma Homey. Avinstallera inte först och använd inte `--clean`. Behåll fungerande konto/nycklar/API-appversion. Nya egenskaper läggs till vid start. Homey uppdateras manuellt.
+
+48 automatiska Node-tester och Homey CLI:s tekniska publish-validering passerar. Nya kommandon är inte testade mot en riktig bil i denna port. Modell-/region-/kontostöd varierar. Ett accepterat anrop bevisar inte utförd åtgärd. Bluetooth-/digital környckel ingår inte. Inga liveanrop eller bilkommandon användes i verifieringen.
+
+API-arbete: **Fryyyyy**. Nyckelverktyg: **Wysie**. MIT-licenser medföljer. Delas i befintligt skick utan löfte om underhåll eller support. Detta är en GitHub-release, inte Homey-certifiering.

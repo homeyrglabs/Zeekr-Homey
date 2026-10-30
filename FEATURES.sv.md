@@ -1,6 +1,8 @@
-# Funktioner i 0.2.0-beta.1
+# Funktioner i 0.2.1
 
-Utökad community-beta baserad på Fryyyyys MIT-projekt. Kommandonas format har jämförts med originalkoden och testats med simulerade svar. **De nya kommandona har inte provats mot en riktig bil.** Att ett kommando finns i underlaget garanterar inte att en europeisk 001 eller ett delat konto accepterar det.
+[English](FEATURES.md) · [Senaste versionen](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) · [Alla versioner](https://github.com/homeyrglabs/Zeekr-Homey/releases)
+
+Utökad community-version baserad på Fryyyyys MIT-projekt. Kommandonas format har jämförts med originalkoden och testats med simulerade svar. **De nya kommandona har inte provats mot en riktig bil.** Att ett kommando finns i underlaget garanterar inte att en europeisk 001 eller ett delat konto accepterar det.
 
 ## Styrning
 
@@ -42,7 +44,7 @@ Bluetooth-/digital nyckel, närhetsupplåsning, startbehörighet, kamerabilder/v
 
 ## Uppdatera och prova
 
-1. Hämta ZIP-filen för **v0.2.0-beta.1** från Releases. Packa upp hela paketet.
+1. Hämta ZIP-filen för **v0.2.1** från [Releases](https://github.com/homeyrglabs/Zeekr-Homey/releases). Packa upp hela paketet.
 2. Kör `INSTALL_WINDOWS.cmd` som förra gången och välj samma Homey. Avinstallera inte och använd inte `--clean`.
 3. Befintlig bil och kontoinställningar behålls. Nya egenskaper läggs till när appen startar.
 4. Öppna bilen i Homey och gå till kontrollerna. Prova en funktion i taget när du står vid bilen med din vanliga nyckel tillgänglig. Börja gärna med ljussignal. Bekräfta resultatet på bilen.

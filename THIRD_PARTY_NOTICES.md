@@ -12,7 +12,7 @@ MIT License, Copyright (c) 2025 Fryyyyy. Complete license: `tools/fryyyyy-zeekr-
 
 Source: https://github.com/Fryyyyy/zeekr_homeassistant
 
-Telemetry fields and the RCS/ZAF charging/climate command payloads are adapted from this integration. The relevant source files and full MIT license are included in `upstream-reference`. Home Assistant entity classes and services do not run on Homey. Features not implemented by this beta must not be inferred from upstream's feature list.
+Telemetry fields, remote-control payloads (including RDL/RDU locks, RCS charging and ZAF climate), and charge/departure schedules are adapted from this integration. The relevant source files and full MIT license are included in `upstream-reference`. Home Assistant entity classes and services do not run on Homey. Features not implemented by this port must not be inferred from upstream's feature list.
 
 ## Wysie — Zeekr Key Extractor
 
@@ -24,7 +24,7 @@ Exact source commits are recorded in `UPSTREAM_VERSIONS.json`. License notices m
 
 ## Homey and Zeekr
 
-Homey and Zeekr names identify the platforms/products integrated by this community beta. This is an unofficial community integration, not affiliated with Zeekr or Athom. RG Labs identifies the Homey package distributor, not the original API author. The artwork is a generic EV symbol, not the official Zeekr logo or a specific vehicle model.
+Homey and Zeekr names identify the platforms/products integrated by this community integration. This is an unofficial community integration, not affiliated with Zeekr or Athom. RG Labs identifies the Homey package distributor, not the original API author. The artwork is a generic EV symbol, not the official Zeekr logo or a specific vehicle model.
 
 ## Maintenance
 

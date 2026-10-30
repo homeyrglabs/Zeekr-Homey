@@ -1,5 +1,8 @@
 # Extract the Homey API key JSON (Windows)
 
+[Download latest release](https://github.com/homeyrglabs/Zeekr-Homey/releases/latest) · [All releases](https://github.com/homeyrglabs/Zeekr-Homey/releases) · [Svenska](KEYS.sv.md)
+
+
 These are API signing/encryption values, not the car’s digital driving key. They come from the Android app files, not Homey. No key values are included in this repository.
 
 ## Supported route
@@ -18,7 +21,7 @@ https://apkpure.net/zeekr/com.zeekr.overseas/download/2.9.9
 
 APKPure is not Zeekr’s own website. Check **EU**, **2.9.9**, **com.zeekr.overseas**, about **236 MB**, **XAPK**. Only save the file to the computer; installing an APKPure app or the old Zeekr app is not required. Do not use com.zeekr.global.
 
-The adapter reads `com.zeekr.overseas.apk` and `config.arm64_v8a.apk` from the archive. It checks both against the exact APK hashes listed in [KEYS.sv.md](KEYS.sv.md). A different build is rejected even if it has the same displayed version number. Do not disable that check.
+The adapter reads `com.zeekr.overseas.apk` and `config.arm64_v8a.apk` from the archive. It checks both against the exact APK hashes listed below. A different build is rejected even if it has the same displayed version number. Do not disable that check.
 
 ## 3. Extract
 
@@ -63,3 +66,11 @@ With separate APKs from the exact analysed build, pass the base APK as the input
 The adapter does not support EU 3.1.1 or other builds. USB debugging only allows copying APKs; it does not automatically expose runtime secrets. BlueStacks with ADB is not automatically rooted. Only three fields were verified from the analysed 3.1.1 build using a different method; that is not a complete setup route. Wysie’s Frida methods are version-specific; see the included original documentation instead of assuming compatibility.
 
 Never upload your JSON, account details, sessions, personal logs or APKs to GitHub. Original extractor source and MIT license: [Wysie](https://github.com/Wysie/zeekr_key_extractor), `tools/wysie-key-extractor/LICENSE`.
+
+## Exact analysed build hashes
+
+Base APK SHA-256: `dbafb39c8f001f85e2eb621b06a518bccb47a28b392901f44eea847b5423a301`
+
+ARM64 APK SHA-256: `8f2f4cf71eac73c6b8329c456d0a5f68f3688fc0901bc94548bb9581c5f7caaa`
+
+These hashes identify files, not API keys. For the optional Android copying route, see [ADB.md](ADB.md).
